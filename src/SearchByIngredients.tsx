@@ -1,5 +1,9 @@
 export function SearchByIngredients(){
     return (
-        <div>Search by Ingredients</div>
+        <div>
+            <ul>
+                <button>Gin</button>
+            </ul>
+        </div>
     );
 }

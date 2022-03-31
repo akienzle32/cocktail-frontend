@@ -1,5 +1,9 @@
 export function SearchByName(){
     return(
-        <div>Search by Name</div>
+        <div>
+            <form>
+                <input name="cocktail-name" className="pl-4" type="text" placeholder="Search for a cocktail..."></input>
+            </form>
+        </div>
     );
 }

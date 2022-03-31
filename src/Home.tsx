@@ -19,7 +19,7 @@ export function Home(){
         <div className="flex flex-col items-center justify-center">
             <div>
                 <button onClick={() => setSearchByName(true)} className="w-40 h-16 m-14 p-4 rounded bg-rose-500 hover:bg-rose-400">Search by Name</button>
-                <button onClick={() => setSearchByName(false)} className="w-50 h-16 m-14 p-4 rounded bg-rose-500 hover:bg-rose-400">Search by Ingredients</button>
+                <button name="search-by-ingredients-btn" onClick={() => setSearchByName(false)} className="w-50 h-16 m-14 p-4 rounded bg-rose-500 hover:bg-rose-400">Search by Ingredients</button>
             </div>
             {searchComponent}
         </div>
