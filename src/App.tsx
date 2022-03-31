@@ -1,24 +1,16 @@
 import React from 'react';
-import logo from './logo.svg';
+import { Link } from 'react-router-dom';
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <div className="h-20 bg-rose-500">
+        <ul className="list-none">
+          <li className="text-3xl float-left ml-16 mt-5">The Cocktail Library</li>
+          <li className="text-xl float-right mr-20 mt-6">My profile</li>
+        </ul>
+      </div>
     </div>
   );
 }
