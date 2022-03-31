@@ -1,5 +1,5 @@
 export function SearchByIngredients(){
     return (
-        <div></div>
+        <div>Search by Ingredients</div>
     );
 }

@@ -1,5 +1,5 @@
 export function SearchByName(){
     return(
-        <div></div>
+        <div>Search by Name</div>
     );
 }
