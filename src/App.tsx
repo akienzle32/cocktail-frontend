@@ -1,11 +1,12 @@
-import React from 'react';
-import { Link, Outlet } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, Outlet, Route, Routes } from 'react-router-dom';
 import { Home } from './Home';
 import './App.css';
-import { SearchByIngredients } from './SearchByIngredients';
+import { Login } from './Login';
 import { Profile } from './Profile';
 
 function App() {
+  const [ myBar, setMyBar ] = useState<Array<string>>([]);
   return (
     <div>
       <div className="h-20 bg-rose-500">
@@ -14,6 +15,10 @@ function App() {
           <li className="text-xl float-right mr-20 mt-6"><Link to="/profile">My profile</Link></li>
         </ul>
       </div>
+      <Routes>
+        <Route path="profile" element={<Profile />} />
+        <Route path="login" element={<Login />} />
+      </Routes>
       <Outlet />
     </div>
   );
