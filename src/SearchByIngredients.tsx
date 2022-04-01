@@ -24,10 +24,9 @@ export function SearchByIngredients(){
     }
 
     function displayIngredientButtons(): Array<ReactElement> {
-        const nextIngredientButtons = ingredientButtons;
         let labels = []
 
-        switch(nextIngredientButtons){
+        switch(ingredientButtons){
             case 'Categories':
                 labels = categories;
                 break;
@@ -44,10 +43,18 @@ export function SearchByIngredients(){
                 labels = categories;
                 break;
         }
-        const nextButtons = labels.map((label, index) => {
+        const nextIngredientButtons = labels.map((label, index) => {
             return <button onClick={handleClick} value={label} key={index} className="w-full block text-lg text-left hover:bg-rose-400"><p className="pl-2">{label}</p></button>
         })
-        return nextButtons;
+        return nextIngredientButtons;
+    }
+
+    function displayBarButtons(): Array<ReactElement>{
+        const currentBar = myBar;
+        const barButtons = currentBar.map(ingredient => {
+            return <button className="w-full block text-lg text-left hover:bg-rose-400"><p className="pl-2">{ingredient}</p></button>
+        })
+        return barButtons;
     }
 
     function goBack(e: React.MouseEvent){
@@ -62,6 +69,7 @@ export function SearchByIngredients(){
         return text;
     }
     const categoryButtons = displayIngredientButtons();
+    const barButtons = displayBarButtons();
     const backButton = displayGoBack();
     return (
         <div className="flex items-center justify-center">
@@ -75,8 +83,8 @@ export function SearchByIngredients(){
             </div>
             <div>
                 <p className="text-center text-xl">My bar</p>
-                <div className="w-72 h-80 bg-rose-500 pl-2 border-solid border-r border-t border-b border-r-white">
-                    <button className="text-lg">Remove</button>
+                <div className="w-72 h-80 bg-rose-500 border-solid border-r border-t border-b border-r-white">
+                    {barButtons}
                 </div>
             </div>
         </div>
