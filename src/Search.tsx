@@ -6,11 +6,15 @@ export function Search(props: any){
     const [ searchByName, setSearchByName ] = useState(true);
     const [ cocktailSearch, setCocktailSearch ] = useState('');
 
+    // add fetchCocktail function here and pass it down as a prop to SearchByName
+
+    // add fetchByIngredients function here and pass it down as a prop to SearchByIngredients
+
     function searchToDisplay(){
         if (searchByName)
             return <SearchByName setCocktailSearch={setCocktailSearch} />
         else 
-            return <SearchByIngredients myBar={props.myBar} updateMyBar={props.updateMyBar} />
+            return <SearchByIngredients myBar={props.myBar} addToMyBar={props.addToMyBar} removeFromMyBar={props.removeFromMyBar} />
     }
 
     const searchComponent = searchToDisplay();
