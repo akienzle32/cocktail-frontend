@@ -4,10 +4,11 @@ import { SearchByName } from './SearchByName';
 
 export function Search(props: any){
     const [ searchByName, setSearchByName ] = useState(true);
+    const [ cocktailSearch, setCocktailSearch ] = useState('');
 
     function searchToDisplay(){
         if (searchByName)
-            return <SearchByName />
+            return <SearchByName setCocktailSearch={setCocktailSearch} />
         else 
             return <SearchByIngredients myBar={props.myBar} updateMyBar={props.updateMyBar} />
     }

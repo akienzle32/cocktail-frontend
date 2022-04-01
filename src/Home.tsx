@@ -6,8 +6,6 @@ import { Login } from './Login';
 import { Profile } from './Profile';
 
 export function Home(){
-    const location = useLocation();
-    const path = location.pathname;
     const [ myBar, setMyBar ] = useState<Array<string>>([]);
 
     function updateMyBar(ingredient: string){
