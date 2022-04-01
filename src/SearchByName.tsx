@@ -1,7 +1,7 @@
 import { useState, FormEvent, ChangeEvent } from 'react';
 
-export function SearchByName(){
-    const [ cocktailSearch, setCocktailSearch ] = useState('');
+export function SearchByName(props: any){
+    //const [ cocktailSearch, setCocktailSearch ] = useState('');
 
     function onSubmit(e: FormEvent): void {
         e.preventDefault();
@@ -10,7 +10,7 @@ export function SearchByName(){
     function handleChange(e: ChangeEvent): void {
         const element = e.currentTarget as HTMLInputElement;
         const value = element.value;
-        setCocktailSearch(value);
+        props.setCocktailSearch(value);
     }
 
     return (
