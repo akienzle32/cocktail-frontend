@@ -1,13 +1,13 @@
 import React, { useState, ChangeEvent, EventHandler, ReactElement } from "react";
 
-export function SearchByIngredients(){
+export function SearchByIngredients(props: any){
     const categories = ['Spirits', 'Liqueurs', 'Fruit juices'];
     const spirits = ['Bourbon', 'Gin', 'Tequila', 'Vodka', 'Rye whiskey', 'White rum'];
     const fruitJuices = ['Lemon juice', 'Lime juice', 'Grapefruit juice'];
     const liqueurs = ['Maraschino', 'Campari', 'Orange liqueur'];
 
     const [ ingredientButtons, setIngredientButtons ] = useState('Categories');
-    const [ myBar, setMyBar ] = useState<Array<string>>([]);
+    //const [ myBar, setMyBar ] = useState<Array<string>>([]);
 
     function handleClick(e: React.MouseEvent){
         const button = e.currentTarget as HTMLButtonElement;
@@ -15,11 +15,7 @@ export function SearchByIngredients(){
         if (categories.includes(buttonName)){
             setIngredientButtons(buttonName);
         } else {
-            const lastBar: Array<string> = myBar;
-            if (!myBar.includes(buttonName)){
-                const nextBar: Array<string> = lastBar.concat(buttonName);
-                setMyBar(nextBar);
-            }
+            props.updateMyBar(buttonName);
         }
     }
 
@@ -50,9 +46,9 @@ export function SearchByIngredients(){
     }
 
     function displayBarButtons(): Array<ReactElement>{
-        const currentBar = myBar;
+        const currentBar: Array<string> = props.myBar;
         const barButtons = currentBar.map(ingredient => {
-            return <button className="w-full block text-lg text-left hover:bg-rose-400"><p className="pl-2">{ingredient}</p></button>
+            return <button key={ingredient} className="w-full block text-lg text-left hover:bg-rose-400"><p className="pl-2">{ingredient}</p></button>
         })
         return barButtons;
     }
