@@ -18,6 +18,39 @@ test('SearchByIngredients renders with button press', () => {
   const searchByIngredientsBtn = screen.getByRole('button', {name: /search by ingredients/i});
   fireEvent.click(searchByIngredientsBtn);
 
-  const searchByIngredientsComponent = screen.getByRole('button', {name: /gin/i});
+  const searchByIngredientsComponent = screen.getByRole('button', {name: /spirits/i});
   expect(searchByIngredientsComponent).toBeInTheDocument();
+})
+
+test('Profile renders with link click', () => {
+  render(<MemoryRouter><App /></MemoryRouter>);
+
+  const profileLink = screen.getByRole('link', { name: /my profile/i});
+  fireEvent.click(profileLink);
+
+  const profileComponent = screen.getByRole('button', {name: /profile/i});
+  expect(profileComponent).toBeInTheDocument();
+})
+
+test('Back button does not render initially with SearchByIngredients', () => {
+  render(<MemoryRouter><App /></MemoryRouter>);
+
+  const searchByIngredientsBtn = screen.getByRole('button', {name: /search by ingredients/i});
+  fireEvent.click(searchByIngredientsBtn);
+
+  const backButton = screen.queryByRole('button', {name: /go back/i});
+  expect(backButton).not.toBeInTheDocument();
+})
+
+test('Back button renders after click of category', () => {
+  render(<MemoryRouter><App /></MemoryRouter>);
+  
+  const searchByIngredientsBtn = screen.getByRole('button', {name: /search by ingredients/i});
+  fireEvent.click(searchByIngredientsBtn);
+
+  const spiritsBtn = screen.getByRole('button', {name: /spirits/i});
+  fireEvent.click(spiritsBtn);
+
+  const backButton = screen.getByRole('button', {name: /go back/i});
+  expect(backButton).toBeInTheDocument();
 })
