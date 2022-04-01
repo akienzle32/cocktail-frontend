@@ -14,10 +14,8 @@ export function SearchByName(){
     }
 
     return (
-        <div>
-            <form onSubmit={onSubmit}>
-                <input onChange={handleChange} className="h-10 w-80 text-black text-center text-xl outline-rose-500" type="text" placeholder="Search for a cocktail..."></input>
-            </form>
-        </div>
+        <form onSubmit={onSubmit}>
+            <input onChange={handleChange} className="h-10 w-80 text-black text-center text-xl outline-rose-500" type="text" placeholder="Search for a cocktail..."></input>
+        </form>
     );
 }

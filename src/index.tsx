@@ -13,11 +13,8 @@ import { Profile } from './Profile';
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<App />}>
-          <Route path="profile" element={<Profile />} />
-          <Route path="login" element={<Login />} />
-          <Route index element={<Home />} />
+      <Routes>  
+        <Route path="*" element={<App />}>
         </Route>
       </Routes>
     </BrowserRouter>
