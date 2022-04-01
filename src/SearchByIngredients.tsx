@@ -6,22 +6,28 @@ export function SearchByIngredients(){
     const fruitJuices = ['Lemon juice', 'Lime juice', 'Grapefruit juice'];
     const liqueurs = ['Maraschino', 'Campari', 'Orange liqueur'];
 
-    const [ buttonsToDisplay, setButtonsToDisplay ] = useState('Categories');
+    const [ ingredientButtons, setIngredientButtons ] = useState('Categories');
+    const [ myBar, setMyBar ] = useState<Array<string>>([]);
 
     function handleClick(e: React.MouseEvent){
         const button = e.currentTarget as HTMLButtonElement;
         const buttonName = button.value;
-        // Add if-statement to handle simple case of clicking a category,
-        // else statement will push ingredient into user's bar cart.
-        if (categories.includes(buttonName))
-            setButtonsToDisplay(buttonName);
+        if (categories.includes(buttonName)){
+            setIngredientButtons(buttonName);
+        } else {
+            const lastBar: Array<string> = myBar;
+            if (!myBar.includes(buttonName)){
+                const nextBar: Array<string> = lastBar.concat(buttonName);
+                setMyBar(nextBar);
+            }
+        }
     }
 
-    function displayButtons(): Array<ReactElement> {
-        const nextButtonCategory = buttonsToDisplay;
+    function displayIngredientButtons(): Array<ReactElement> {
+        const nextIngredientButtons = ingredientButtons;
         let labels = []
 
-        switch(nextButtonCategory){
+        switch(nextIngredientButtons){
             case 'Categories':
                 labels = categories;
                 break;
@@ -45,17 +51,17 @@ export function SearchByIngredients(){
     }
 
     function goBack(e: React.MouseEvent){
-        setButtonsToDisplay('Categories');
+        setIngredientButtons('Categories');
     }
 
     function displayGoBack(){
-        const buttons = buttonsToDisplay;
+        const buttons = ingredientButtons;
         let text = '';
         if (buttons != 'Categories')
             text = 'Go back';
         return text;
     }
-    const categoryButtons = displayButtons();
+    const categoryButtons = displayIngredientButtons();
     const backButton = displayGoBack();
     return (
         <div className="flex items-center justify-center">
