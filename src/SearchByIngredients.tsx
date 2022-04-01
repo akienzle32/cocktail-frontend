@@ -11,8 +11,10 @@ export function SearchByIngredients(){
     function handleClick(e: React.MouseEvent){
         const button = e.currentTarget as HTMLButtonElement;
         const buttonName = button.value;
-        console.log(buttonName);
-        setButtonsToDisplay(buttonName);
+        // Add if-statement to handle simple case of clicking a category,
+        // else statement will push ingredient into user's bar cart.
+        if (categories.includes(buttonName))
+            setButtonsToDisplay(buttonName);
     }
 
     function displayButtons(): Array<ReactElement> {
