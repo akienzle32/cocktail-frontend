@@ -25,12 +25,12 @@ export function Home(){
         }
     }
  
-    const searchComponent = componentToDisplay();
+    const childComponent = componentToDisplay();
 
     return (
         <div>
             <div className="flex flex-col items-center justify-center">
-                {searchComponent}
+                {childComponent}
             </div>
         </div>
     );
