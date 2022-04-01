@@ -42,13 +42,27 @@ export function SearchByIngredients(){
         return nextButtons;
     }
 
+    function goBack(e: React.MouseEvent){
+        setButtonsToDisplay('Categories');
+    }
+
+    function displayGoBack(){
+        const buttons = buttonsToDisplay;
+        let text = '';
+        if (buttons != 'Categories')
+            text = 'Go back';
+        return text;
+    }
     const categoryButtons = displayButtons();
+    const backButton = displayGoBack();
     return (
         <div className="flex items-center justify-center">
             <div>
                 <p className="text-center text-xl">Ingredients</p>
                 <div className="w-72 h-80 bg-rose-500 border border-solid border-x-white">
                     {categoryButtons}
+                    <br></br>
+                    <button onClick={goBack}><div className="hover:bg-rose-400 text-lg pl-2 pr-3">{backButton}</div></button>
                 </div>
             </div>
             <div>
