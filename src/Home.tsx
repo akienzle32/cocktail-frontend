@@ -3,6 +3,7 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 import './App.css';
 import { Search } from './Search';
 import { Login } from './Login';
+import { Profile } from './Profile';
 
 export function Home(){
     const location = useLocation();
@@ -20,18 +21,17 @@ export function Home(){
     function componentToDisplay(): ReactElement {
         if (path === '/login')
             return <Login />
-        else {
+        else if (path === '/profile')
+            return <Profile />
+        else
             return <Search myBar={myBar} updateMyBar={updateMyBar} />
-        }
     }
  
     const childComponent = componentToDisplay();
 
     return (
-        <div>
-            <div className="flex flex-col items-center justify-center">
-                {childComponent}
-            </div>
+        <div className="flex flex-col items-center justify-center">
+            {childComponent}
         </div>
     );
 }
