@@ -44,7 +44,7 @@ export function SearchByIngredients(props: any){
             if (categories.includes(current))
                 button = <button onClick={handleClick} value={current} key={current} className="w-full block text-lg text-left hover:bg-rose-400"><p className="pl-2">{current}</p></button>
             else if (spirits.includes(current))
-                button = button = <button onClick={handleClick} value={current} key={current} className="w-full block text-lg text-left hover:bg-rose-400"><p className="pl-2">{current}</p></button>
+                button = button = <button onClick={handleClick} value={current} key={current} className="w-full block text-lg text-left hover:bg-rose-400"><div className="group pl-2 pr-2 flex items-stretch justify-between"><div>{current}</div><div className="text-rose-500 group-hover:text-white">Add</div></div></button>
             else if (fruitJuices.includes(current))
                 button = button = <button onClick={handleClick} value={current} key={current} className="w-full block text-lg text-left hover:bg-rose-400"><p className="pl-2">{current}</p></button>
             else if (liqueurs.includes(current))
