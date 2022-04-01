@@ -39,9 +39,21 @@ export function SearchByIngredients(props: any){
                 labels = categories;
                 break;
         }
-        const nextIngredientButtons = labels.map((label, index) => {
-            return <button onClick={handleClick} value={label} key={index} className="w-full block text-lg text-left hover:bg-rose-400"><p className="pl-2">{label}</p></button>
-        })
+        const nextIngredientButtons = labels.reduce((previous: Array<ReactElement>, current: string) => {
+            let button: ReactElement;
+            if (categories.includes(current))
+                button = <button onClick={handleClick} value={current} key={current} className="w-full block text-lg text-left hover:bg-rose-400"><p className="pl-2">{current}</p></button>
+            else if (spirits.includes(current))
+                button = button = <button onClick={handleClick} value={current} key={current} className="w-full block text-lg text-left hover:bg-rose-400"><p className="pl-2">{current}</p></button>
+            else if (fruitJuices.includes(current))
+                button = button = <button onClick={handleClick} value={current} key={current} className="w-full block text-lg text-left hover:bg-rose-400"><p className="pl-2">{current}</p></button>
+            else if (liqueurs.includes(current))
+                button = button = <button onClick={handleClick} value={current} key={current} className="w-full block text-lg text-left hover:bg-rose-400"><p className="pl-2">{current}</p></button>
+            else
+                button = <button></button>
+            previous.push(button);
+            return previous;
+        }, []);
         return nextIngredientButtons;
     }
 
