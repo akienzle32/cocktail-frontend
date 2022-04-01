@@ -42,13 +42,13 @@ export function SearchByIngredients(props: any){
         const nextIngredientButtons = labels.reduce((previous: Array<ReactElement>, current: string) => {
             let button: ReactElement;
             if (categories.includes(current))
-                button = <button onClick={handleClick} value={current} key={current} className="w-full block text-lg text-left hover:bg-rose-400"><p className="pl-2">{current}</p></button>
+                button = <button onClick={handleClick} value={current} key={current} className="w-full block text-lg text-left hover:bg-rose-400 transition duration-100"><div className="pl-2">{current}</div></button>
             else if (spirits.includes(current))
-                button = button = <button onClick={handleClick} value={current} key={current} className="w-full block text-lg text-left hover:bg-rose-400"><div className="group pl-2 pr-2 flex items-stretch justify-between"><div>{current}</div><div className="text-rose-500 group-hover:text-white">Add</div></div></button>
+                button = <button onClick={handleClick} value={current} key={current} className="w-full block text-lg text-left hover:bg-rose-400 transition duration-100"><div className="group pl-2 pr-2 flex items-stretch justify-between"><div>{current}</div><div className="text-base text-rose-500 pt-0.5 group-hover:text-white transition duration-100">Add</div></div></button>
             else if (fruitJuices.includes(current))
-                button = button = <button onClick={handleClick} value={current} key={current} className="w-full block text-lg text-left hover:bg-rose-400"><p className="pl-2">{current}</p></button>
+                button = <button onClick={handleClick} value={current} key={current} className="w-full block text-lg text-left hover:bg-rose-400 transition duration-100"><div className="group pl-2 pr-2 flex items-stretch justify-between"><div>{current}</div><div className="text-base text-rose-500 pt-0.5 group-hover:text-white transition duration-100">Add</div></div></button>
             else if (liqueurs.includes(current))
-                button = button = <button onClick={handleClick} value={current} key={current} className="w-full block text-lg text-left hover:bg-rose-400"><p className="pl-2">{current}</p></button>
+                button = <button onClick={handleClick} value={current} key={current} className="w-full block text-lg text-left hover:bg-rose-400 transition duration-100"><div className="group pl-2 pr-2 flex items-stretch justify-between"><div>{current}</div><div className="text-base text-rose-500 pt-0.5 group-hover:text-white transition duration-100">Add</div></div></button>
             else
                 button = <button></button>
             previous.push(button);
@@ -60,7 +60,7 @@ export function SearchByIngredients(props: any){
     function displayBarButtons(): Array<ReactElement>{
         const currentBar: Array<string> = props.myBar;
         const barButtons = currentBar.map(ingredient => {
-            return <button key={ingredient} className="w-full block text-lg text-left hover:bg-rose-400"><p className="pl-2">{ingredient}</p></button>
+            return <button key={ingredient} className="w-full block text-lg text-left hover:bg-rose-400 transition duration-100"><div className="group pl-2 pr-2 flex items-stretch justify-between"><div>{ingredient}</div><div className="text-base text-rose-500 pt-0.5 group-hover:text-white transition duration-100">Remove</div></div></button>
         })
         return barButtons;
     }
