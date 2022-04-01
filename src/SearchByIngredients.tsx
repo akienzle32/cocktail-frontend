@@ -6,22 +6,27 @@ export function SearchByIngredients(){
     const fruitJuices = ['Lemon juice', 'Lime juice', 'Grapefruit juice'];
     const liqueurs = ['Maraschino', 'Campari', 'Orange liqueur'];
 
-    const [ buttonsToDisplay, setButtonsToDisplay ] = useState('Categories');
+    const [ ingredientButtons, setIngredientButtons ] = useState('Categories');
+    const [ myBar, setMyBar ] = useState<Array<string>>([]);
 
     function handleClick(e: React.MouseEvent){
         const button = e.currentTarget as HTMLButtonElement;
         const buttonName = button.value;
-        // Add if-statement to handle simple case of clicking a category,
-        // else statement will push ingredient into user's bar cart.
-        if (categories.includes(buttonName))
-            setButtonsToDisplay(buttonName);
+        if (categories.includes(buttonName)){
+            setIngredientButtons(buttonName);
+        } else {
+            const lastBar: Array<string> = myBar;
+            if (!myBar.includes(buttonName)){
+                const nextBar: Array<string> = lastBar.concat(buttonName);
+                setMyBar(nextBar);
+            }
+        }
     }
 
-    function displayButtons(): Array<ReactElement> {
-        const nextButtonCategory = buttonsToDisplay;
+    function displayIngredientButtons(): Array<ReactElement> {
         let labels = []
 
-        switch(nextButtonCategory){
+        switch(ingredientButtons){
             case 'Categories':
                 labels = categories;
                 break;
@@ -38,24 +43,33 @@ export function SearchByIngredients(){
                 labels = categories;
                 break;
         }
-        const nextButtons = labels.map((label, index) => {
+        const nextIngredientButtons = labels.map((label, index) => {
             return <button onClick={handleClick} value={label} key={index} className="w-full block text-lg text-left hover:bg-rose-400"><p className="pl-2">{label}</p></button>
         })
-        return nextButtons;
+        return nextIngredientButtons;
+    }
+
+    function displayBarButtons(): Array<ReactElement>{
+        const currentBar = myBar;
+        const barButtons = currentBar.map(ingredient => {
+            return <button className="w-full block text-lg text-left hover:bg-rose-400"><p className="pl-2">{ingredient}</p></button>
+        })
+        return barButtons;
     }
 
     function goBack(e: React.MouseEvent){
-        setButtonsToDisplay('Categories');
+        setIngredientButtons('Categories');
     }
 
     function displayGoBack(){
-        const buttons = buttonsToDisplay;
+        const buttons = ingredientButtons;
         let text = '';
         if (buttons != 'Categories')
             text = 'Go back';
         return text;
     }
-    const categoryButtons = displayButtons();
+    const categoryButtons = displayIngredientButtons();
+    const barButtons = displayBarButtons();
     const backButton = displayGoBack();
     return (
         <div className="flex items-center justify-center">
@@ -69,8 +83,8 @@ export function SearchByIngredients(){
             </div>
             <div>
                 <p className="text-center text-xl">My bar</p>
-                <div className="w-72 h-80 bg-rose-500 pl-2 border-solid border-r border-t border-b border-r-white">
-                    <button className="text-lg">Remove</button>
+                <div className="w-72 h-80 bg-rose-500 border-solid border-r border-t border-b border-r-white">
+                    {barButtons}
                 </div>
             </div>
         </div>
