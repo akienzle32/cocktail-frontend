@@ -1,4 +1,4 @@
-import { ReactElement, useState } from 'react';
+import { useState } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import './App.css';
 import { Search } from './Search';
@@ -17,21 +17,13 @@ export function Home(){
         }
     }
 
-
-    function componentToDisplay(): ReactElement {
-        if (path === '/login')
-            return <Login />
-        else if (path === '/profile')
-            return <Profile />
-        else
-            return <Search myBar={myBar} updateMyBar={updateMyBar} />
-    }
- 
-    const childComponent = componentToDisplay();
-
     return (
         <div className="flex flex-col items-center justify-center">
-            {childComponent}
+            <Routes>
+                <Route path="profile" element={<Profile />}></Route>
+                <Route path="login" element={<Login />}></Route>
+                <Route path="/" element={<Search myBar={myBar} updateMyBar={updateMyBar} />}></Route>
+            </Routes>
         </div>
     );
 }

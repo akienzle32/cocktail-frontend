@@ -1,12 +1,9 @@
-import React, { useState, useContext } from 'react';
-import { Link, Outlet, Route, Routes } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, Outlet } from 'react-router-dom';
 import { Home } from './Home';
 import './App.css';
-import { Login } from './Login';
-import { Profile } from './Profile';
 
 function App() {
-  const [ myBar, setMyBar ] = useState<Array<string>>([]);
   const [ loggedIn, setLoggedIn ] = useState(false);
 
   function displayLink(){
