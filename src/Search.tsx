@@ -16,7 +16,10 @@ export function Search(props: any){
             mode: 'cors',
         })
         .then(response => response.json())
-        .then(data => console.log(data))
+        .then(data => {
+            console.log(data);
+            setSearchResults(data);
+        })
     }
 
     // add fetchByIngredients function here and pass it down as a prop to SearchByIngredients
@@ -30,7 +33,7 @@ export function Search(props: any){
 
     function displaySearchResults(): ReactElement {
         if (searchResults.length)
-            return <SearchResults />
+            return <SearchResults searchResults={searchResults} />
         else
             return <div></div>
     }
