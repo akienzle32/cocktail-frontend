@@ -7,7 +7,7 @@ export function SearchResults(props: any){
     function createCocktailCards(): Array<ReactElement> {
         const cocktailDetails: Array<Cocktail> = props.searchResults;
         const cards = cocktailDetails.map(detail => {
-            return <CocktailCard name={detail.name} image={detail.image} />
+            return <CocktailCard id={detail.id} name={detail.name} image={detail.image} />
         })
         return cards;
     }
