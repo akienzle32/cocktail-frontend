@@ -15,7 +15,7 @@ export function SearchByName(props: any){
 
     return (
         <form onSubmit={onSubmit}>
-            <input onChange={handleChange} className="h-10 w-80 text-black text-center text-xl outline-rose-500" type="text" placeholder="Search for a cocktail..."></input>
+            <input onChange={handleChange} className="h-10 w-80 text-black text-center text-xl outline-red" type="text" placeholder="Search for a cocktail..."></input>
         </form>
     );
 }
