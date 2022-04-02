@@ -5,6 +5,7 @@ export function SearchByName(props: any){
 
     function onSubmit(e: FormEvent): void {
         e.preventDefault();
+        props.fetchCocktail(props.cocktailSearch);
     }
 
     function handleChange(e: ChangeEvent): void {
