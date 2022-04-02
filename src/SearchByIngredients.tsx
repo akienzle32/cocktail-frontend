@@ -91,8 +91,11 @@ export function SearchByIngredients(props: any){
             </div>
             <div>
                 <p className="text-center text-xl">My bar</p>
-                <div className="w-72 h-80 bg-rose-500 border-solid border-r border-t border-b border-r-white">
-                    {barButtons}
+                <div className="flex flex-col items-start overflow-scroll justify-between w-72 h-80 bg-rose-500 border-solid border-r border-t border-b border-r-white">
+                    <div className="w-full flex flex-col items-start justify-start">
+                        {barButtons}
+                    </div>
+                    <button className="w-full pl-2 hover:bg-rose-400">Search for cocktails</button>
                 </div>
             </div>
         </div>
