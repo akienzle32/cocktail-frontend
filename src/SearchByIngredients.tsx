@@ -83,10 +83,12 @@ export function SearchByIngredients(props: any){
         <div className="flex items-center justify-center">
             <div>
                 <p className="text-center text-xl">Ingredients</p>
-                <div className="w-72 h-80 bg-rose-500 border border-solid border-x-white">
-                    {categoryButtons}
-                    <br></br>
-                    <button onClick={goBack}><div className="hover:bg-rose-400 text-lg pl-2 pr-3">{backButton}</div></button>
+                <div className="flex flex-col items-start overflow-scroll justify-between w-72 h-80 bg-rose-500 border-solid border-l border-r border-t border-b border-l-white">
+                    <div className="w-full flex flex-col items-start justify-start">
+                        {categoryButtons}
+                        <br></br>
+                    </div>
+                    <button className="w-1/4 text-lg bg-rose-700 hover:bg-rose-400" onClick={goBack}>{backButton}</button>
                 </div>
             </div>
             <div>
@@ -95,7 +97,7 @@ export function SearchByIngredients(props: any){
                     <div className="w-full flex flex-col items-start justify-start">
                         {barButtons}
                     </div>
-                    <button className="w-full pl-2 hover:bg-rose-400">Search for cocktails</button>
+                    <button className="w-full text-lg pl-2 bg-rose-700 hover:bg-rose-400">Search for cocktails</button>
                 </div>
             </div>
         </div>
