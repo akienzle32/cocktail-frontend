@@ -88,7 +88,7 @@ export function SearchByIngredients(props: any){
                         {categoryButtons}
                         <br></br>
                     </div>
-                    <button onClick={goBack}><div className="w-full hover:bg-rose-400 text-lg pl-2 pr-3">{backButton}</div></button>
+                    <button className="w-1/4 text-lg bg-rose-700 hover:bg-rose-400" onClick={goBack}>{backButton}</button>
                 </div>
             </div>
             <div>
@@ -97,7 +97,7 @@ export function SearchByIngredients(props: any){
                     <div className="w-full flex flex-col items-start justify-start">
                         {barButtons}
                     </div>
-                    <button className="w-full pl-2 hover:bg-rose-400">Search for cocktails</button>
+                    <button className="w-full text-lg pl-2 bg-rose-700 hover:bg-rose-400">Search for cocktails</button>
                 </div>
             </div>
         </div>
