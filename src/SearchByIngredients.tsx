@@ -82,7 +82,7 @@ export function SearchByIngredients(props: any){
                         {categoryButtons}
                         <br></br>
                     </div>
-                    <button className="w-1/4 text-lg bg-rose-700 hover:bg-rose-400" onClick={goBack}>{backButton}</button>
+                    <button className="w-20 pr-1 text-lg bg-rose-700 hover:bg-rose-400" onClick={goBack}>{backButton}</button>
                 </div>
             </div>
             <div>
