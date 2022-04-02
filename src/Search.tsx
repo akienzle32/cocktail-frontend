@@ -10,11 +10,20 @@ export function Search(props: any){
 
     // add fetchCocktail function here and pass it down as a prop to SearchByName
 
+    function fetchCocktail(search: string) {
+        fetch(`${process.env.REACT_APP_API}cocktails/${search}`, {
+            method: 'GET',
+            mode: 'cors',
+        })
+        .then(response => response.json())
+        .then(data => console.log(data))
+    }
+
     // add fetchByIngredients function here and pass it down as a prop to SearchByIngredients
 
     function displaySearchComponent(){
         if (searchByName)
-            return <SearchByName setCocktailSearch={setCocktailSearch} />
+            return <SearchByName cocktailSearch={cocktailSearch} setCocktailSearch={setCocktailSearch} fetchCocktail={fetchCocktail} />
         else 
             return <SearchByIngredients myBar={props.myBar} addToMyBar={props.addToMyBar} removeFromMyBar={props.removeFromMyBar} />
     }
