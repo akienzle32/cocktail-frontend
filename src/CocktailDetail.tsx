@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router";
-import { isPropertySignature } from "typescript";
+import Cocktail from "./interfaces";
 
 export function CocktailDetail(){
     const location = useLocation();
     const cocktailId = location.pathname.slice(1);
 
-    const [ details, setDetails ] = useState({});
+    const [ details, setDetails ] = useState<Cocktail>({});
 
     // add fetch request here to get cocktail ingredients by id
 
@@ -22,7 +22,9 @@ export function CocktailDetail(){
         })
     }, [])
 
+    const name = details.name;
+
     return (
-        <div className="text-white">Detail</div>
+        <div className="text-white">{name}</div>
     );
 }
