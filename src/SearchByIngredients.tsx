@@ -42,9 +42,9 @@ export function SearchByIngredients(props: any){
         const nextIngredientButtons = labels.reduce((previous: Array<ReactElement>, current: string) => {
             let button: ReactElement;
             if (categories.includes(current))
-                button = <button onClick={handleClick} value={current} key={current} className="w-full block text-lg text-left hover:bg-rose-400 transition duration-100"><div className="pl-2">{current}</div></button>
+                button = <button onClick={handleClick} value={current} key={current} className="w-full block text-lg text-left hover:bg-lightred transition duration-100"><div className="pl-2">{current}</div></button>
             else
-                button = <button onClick={handleClick} value={current} key={current} className="w-full block text-lg text-left hover:bg-rose-400 transition duration-100"><div className="group pl-2 flex items-stretch justify-between"><div>{current}</div><div className="text-base -mr-10 text-rose-500 pt-0.5 pl-1.5 pr-2 group-hover:bg-rose-600 group-hover:text-white group-hover:-translate-x-10 transition duration-300">Add</div></div></button>
+                button = <button onClick={handleClick} value={current} key={current} className="w-full block text-lg text-left hover:bg-lightred transition duration-100"><div className="group pl-2 flex items-stretch justify-between"><div>{current}</div><div className="text-base -mr-10 text-red pt-0.5 pl-1.5 pr-2 group-hover:bg-darkred group-hover:text-white group-hover:-translate-x-10 transition duration-300">Add</div></div></button>
             previous.push(button);
             return previous;
         }, []);
@@ -54,7 +54,7 @@ export function SearchByIngredients(props: any){
     function displayBarButtons(): Array<ReactElement>{
         const currentBar: Array<string> = props.myBar;
         const barButtons = currentBar.map(ingredient => {
-            return <button onClick={() => props.removeFromMyBar(ingredient)} key={ingredient} className="w-full block text-lg text-left hover:bg-rose-400 transition duration-100"><div className="group pl-2 flex items-stretch justify-between"><div>{ingredient}</div><div className="relative -mr-10 text-base text-rose-500 pl-2 pr-2 pt-0.5 group-hover:bg-rose-600 group-hover:text-white group-hover:-translate-x-10 origin-right transition duration-300">Remove</div></div></button>
+            return <button onClick={() => props.removeFromMyBar(ingredient)} key={ingredient} className="w-full block text-lg text-left hover:bg-lightred transition duration-100"><div className="group pl-2 flex items-stretch justify-between"><div>{ingredient}</div><div className="relative -mr-10 text-base text-red pl-2 pr-2 pt-0.5 group-hover:bg-darkred group-hover:text-white group-hover:-translate-x-10 origin-right transition duration-300">Remove</div></div></button>
         })
         return barButtons;
     }
@@ -74,24 +74,24 @@ export function SearchByIngredients(props: any){
     const barButtons = displayBarButtons();
     const backButton = displayGoBack();
     return (
-        <div className="flex items-center justify-center">
+        <div className="flex items-center justify-center text-white">
             <div>
                 <p className="text-center text-xl">Ingredients</p>
-                <div className="flex flex-col items-start justify-start overflow-scroll w-72 h-80 bg-rose-500 border-solid border-l border-r border-t border-b border-l-white">
+                <div className="flex flex-col items-start justify-start overflow-scroll w-72 h-80 bg-red border-solid border-l border-r border-t border-b border-l-white">
                     <div className="w-full flex flex-col items-start justify-start">
                         {categoryButtons}
                         <br></br>
                     </div>
-                    <button className="w-20 pr-1 text-lg bg-rose-700 hover:bg-rose-400" onClick={goBack}>{backButton}</button>
+                    <button className="w-20 pr-1 text-lg bg-darkred hover:bg-lightred" onClick={goBack}>{backButton}</button>
                 </div>
             </div>
             <div>
                 <p className="text-center text-xl">My bar</p>
-                <div className="flex flex-col items-start overflow-scroll justify-between w-72 h-80 bg-rose-500 border-solid border-r border-t border-b border-r-white">
+                <div className="flex flex-col items-start overflow-scroll justify-between w-72 h-80 bg-red border-solid border-r border-t border-b border-r-white">
                     <div className="w-full flex flex-col items-start justify-start">
                         {barButtons}
                     </div>
-                    <button className="w-full h-9 text-xl pl-2 bg-rose-700 hover:bg-rose-400 transition duration-100">Search for cocktails</button>
+                    <button className="w-full h-9 text-xl pl-2 bg-darkred hover:bg-lightred transition duration-100">Search for cocktails</button>
                 </div>
             </div>
         </div>
