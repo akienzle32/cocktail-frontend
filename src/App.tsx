@@ -4,7 +4,7 @@ import { Home } from './Home';
 import './App.css';
 
 function App() {
-  const [ loggedIn, setLoggedIn ] = useState(false);
+  const [ loggedIn, setLoggedIn ] = useState(true);
 
   function displayLink(){
     if (loggedIn)
