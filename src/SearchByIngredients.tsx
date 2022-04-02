@@ -43,14 +43,8 @@ export function SearchByIngredients(props: any){
             let button: ReactElement;
             if (categories.includes(current))
                 button = <button onClick={handleClick} value={current} key={current} className="w-full block text-lg text-left hover:bg-rose-400 transition duration-100"><div className="pl-2">{current}</div></button>
-            else if (spirits.includes(current))
-                button = <button onClick={handleClick} value={current} key={current} className="w-full block text-lg text-left hover:bg-rose-400 transition duration-100"><div className="group pl-2 pr-2 flex items-stretch justify-between"><div>{current}</div><div className="text-base text-rose-500 pt-0.5 group-hover:text-white transition duration-100">Add</div></div></button>
-            else if (fruitJuices.includes(current))
-                button = <button onClick={handleClick} value={current} key={current} className="w-full block text-lg text-left hover:bg-rose-400 transition duration-100"><div className="group pl-2 pr-2 flex items-stretch justify-between"><div>{current}</div><div className="text-base text-rose-500 pt-0.5 group-hover:text-white transition duration-100">Add</div></div></button>
-            else if (liqueurs.includes(current))
-                button = <button onClick={handleClick} value={current} key={current} className="w-full block text-lg text-left hover:bg-rose-400 transition duration-100"><div className="group pl-2 pr-2 flex items-stretch justify-between"><div>{current}</div><div className="text-base text-rose-500 pt-0.5 group-hover:text-white transition duration-100">Add</div></div></button>
             else
-                button = <button></button>
+                button = <button onClick={handleClick} value={current} key={current} className="w-full block text-lg text-left hover:bg-rose-400 transition duration-100"><div className="group pl-2 pr-2 flex items-stretch justify-between"><div>{current}</div><div className="text-base text-rose-500 pt-0.5 group-hover:text-white transition duration-100">Add</div></div></button>
             previous.push(button);
             return previous;
         }, []);
