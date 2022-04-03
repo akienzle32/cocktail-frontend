@@ -27,14 +27,14 @@ test('SearchByIngredients renders with button press', () => {
   expect(searchByName).not.toBeInTheDocument();
 })
 
-test('Profile renders with link click', () => {
+test('Login renders with link click', () => {
   render(<MemoryRouter><App /></MemoryRouter>);
 
-  const profileLink = screen.getByRole('link', { name: /my profile/i});
-  fireEvent.click(profileLink);
+  const loginLink = screen.getByRole('link', { name: /login/i});
+  fireEvent.click(loginLink);
 
-  const profileComponent = screen.getByRole('button', {name: /profile/i});
-  expect(profileComponent).toBeInTheDocument();
+  const loginComponent = screen.getByRole('button', {name: /login/i});
+  expect(loginComponent).toBeInTheDocument();
 })
 
 test('Back button does not render initially with SearchByIngredients', () => {
@@ -89,7 +89,23 @@ test('Subcategories render after click of category', () => {
   expect(ginBtn).toBeInTheDocument();
 })
 
-test('MyBar ingredients persist after navigating to Profile', () => {
+test('The search component to display persists after navigating to Login', () => {
+  render(<MemoryRouter><App /></MemoryRouter>);
+
+  const searchByIngredientsBtn = screen.getByRole('button', {name: /search by ingredients/i});
+  fireEvent.click(searchByIngredientsBtn);
+
+  const loginLink = screen.getByRole('link', {name: /login/i});
+  fireEvent.click(loginLink);
+
+  const homeLink = screen.getByRole('link', {name: /the cocktail library/i});
+  fireEvent.click(homeLink);
+
+  const spiritsBtn = screen.getByRole('button', {name: /spirits/i});
+  expect(spiritsBtn).toBeInTheDocument();
+})
+
+test('MyBar ingredients persist after navigating to Login', () => {
   render(<MemoryRouter><App /></MemoryRouter>);
 
   const searchByIngredientsBtn = screen.getByRole('button', {name: /search by ingredients/i});
@@ -101,16 +117,12 @@ test('MyBar ingredients persist after navigating to Profile', () => {
   const ginBtn = screen.getByRole('button', {name: /gin/i});
   fireEvent.click(ginBtn);
 
-  const profileLink = screen.getByRole('link', {name: /my profile/i});
-  fireEvent.click(profileLink);
+  const loginLink = screen.getByRole('link', {name: /login/i});
+  fireEvent.click(loginLink);
 
   const homeLink = screen.getByRole('link', {name: /the cocktail library/i});
   fireEvent.click(homeLink);
 
-  const nextSearchByIngredientsBtn = screen.getByRole('button', {name: /search by ingredients/i});
-  fireEvent.click(nextSearchByIngredientsBtn);
-
   const nextGinBtn = screen.getByRole('button', {name: /gin/i});
   expect(nextGinBtn).toBeInTheDocument();
-
 })
