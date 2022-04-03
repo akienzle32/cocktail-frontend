@@ -8,6 +8,7 @@ import { Profile } from './Profile';
 
 export function Home(){
     const [ myBar, setMyBar ] = useState<Array<string>>([]);
+    const [ searchByName, setSearchByName ] = useState<boolean>(true);
 
     function addToMyBar(ingredient: string){
         if (!myBar.includes(ingredient)){
@@ -27,7 +28,7 @@ export function Home(){
                 <Route path="profile" element={<Profile />}></Route>
                 <Route path="login" element={<Login />}></Route>
                 <Route path=":cocktailId" element={<CocktailDetail />}></Route>
-                <Route path="/" element={<Search myBar={myBar} addToMyBar={addToMyBar} removeFromMyBar={removeFromMyBar} />}></Route>
+                <Route path="/" element={<Search myBar={myBar} searchByName={searchByName} setSearchByName={setSearchByName} addToMyBar={addToMyBar} removeFromMyBar={removeFromMyBar} />}></Route>
             </Routes>
         </div>
     );
