@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent, EventHandler, ReactElement } from "react";
+import React, { useState, ChangeEvent, EventHandler, ReactElement, FormEvent } from "react";
 
 export function SearchByIngredients(props: any){
     const categories = ['Spirits', 'Liqueurs', 'Fruit juices'];
@@ -17,6 +17,33 @@ export function SearchByIngredients(props: any){
         } else {
             props.addToMyBar(buttonName);
         }
+    }
+
+    function createQueryString(){
+        const currentBar: Array<string> = props.myBar;
+        const queryString = currentBar.map(ingredient => {
+            if (spirits.includes(ingredient))
+                return encodeURIComponent('spirit') + '=' + encodeURIComponent(ingredient);
+            else
+                return encodeURIComponent('ingredient') + '=' + encodeURIComponent(ingredient);
+        }).join('&');
+        
+        return queryString;
+    }
+
+    function handleSubmit(e: FormEvent){
+        e.preventDefault();
+        const queryString = createQueryString();
+
+        fetch(`${process.env.REACT_APP_API}cocktails/search?${queryString}`, {
+            method: 'GET',
+            mode: 'cors',
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            props.setSearchResults(data);
+        })
     }
 
     function displayIngredientButtons(): Array<ReactElement> {
@@ -59,6 +86,21 @@ export function SearchByIngredients(props: any){
         return barButtons;
     }
 
+    /*
+
+    function createHiddenInputs(){
+        const currentBar: Array<string> = props.myBar;
+        const formInputs = currentBar.map(ingredient => {
+            if (spirits.includes(ingredient))
+                return <input type="hidden" name ="spirit" value={ingredient}></input>
+            else
+                return <input type="hidden" name="ingredient" value={ingredient}></input>
+        })
+        return formInputs;
+    }
+
+    */
+
     function goBack(e: React.MouseEvent){
         setIngredientButtons('Categories');
     }
@@ -66,13 +108,14 @@ export function SearchByIngredients(props: any){
     function displayGoBack(){
         const buttons = ingredientButtons;
         let text = '';
-        if (buttons != 'Categories')
+        if (buttons !== 'Categories')
             text = 'Go back';
         return text;
     }
     const categoryButtons = displayIngredientButtons();
     const barButtons = displayBarButtons();
     const backButton = displayGoBack();
+    //const formInputs = createHiddenInputs();
     return (
         <div className="flex items-center justify-center text-white">
             <div>
@@ -91,7 +134,7 @@ export function SearchByIngredients(props: any){
                     <div className="w-full flex flex-col items-start justify-start">
                         {barButtons}
                     </div>
-                    <button className="w-full h-9 text-xl pl-2 bg-darkred hover:bg-lightred transition duration-100">Search for cocktails</button>
+                    <button onClick={handleSubmit} className="w-full h-9 text-xl pl-2 bg-darkred hover:bg-lightred transition duration-100">Search for cocktails</button>
                 </div>
             </div>
         </div>

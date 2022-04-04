@@ -31,7 +31,7 @@ export function Search(props: any){
         if (props.searchByName)
             return <SearchByName cocktailSearch={cocktailSearch} setCocktailSearch={setCocktailSearch} fetchCocktail={fetchCocktail} />
         else 
-            return <SearchByIngredients myBar={props.myBar} addToMyBar={props.addToMyBar} removeFromMyBar={props.removeFromMyBar} />
+            return <SearchByIngredients myBar={props.myBar} addToMyBar={props.addToMyBar} removeFromMyBar={props.removeFromMyBar} searchResults={searchResults} setSearchResults={setSearchResults} />
     }
 
     function displaySearchResults(): ReactElement {
