@@ -15,8 +15,10 @@ export function SearchByName(props: any){
     }
 
     return (
-        <form onSubmit={onSubmit}>
-            <input onChange={handleChange} className="h-10 w-80 text-black text-center text-xl outline-red" type="text" placeholder="Search for a cocktail..."></input>
-        </form>
+        <div className="w-full mt-6 bg-cadetblue pt-6 pb-6 rounded">
+            <form className="w-full flex flex-col items-center justify-center" onSubmit={onSubmit}>
+                <input onChange={handleChange} className="h-10 w-3/4 rounded text-center outline-red text-xl outline-red" type="text" placeholder="Search for a cocktail..."></input>
+            </form>
+        </div>
     );
 }

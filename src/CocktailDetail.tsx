@@ -61,11 +61,11 @@ export function CocktailDetail(){
 
     return (
         <div className="overflow-scroll flex flex-col items-center justify-center">
-            <div className="w-1/2 flex flex-col items-center justify-center pb-16 border-x border-solid border-x-white">
+            <div className="w-1/2 flex flex-col items-center justify-center bg-lightred pb-16 border-x border-solid border-x-darkred">
                 <div className="w-2/3 flex flex-col items-center justify-center">
                     <div className="flex flex-col items-center justify-center text-white">
                         <div className="text-3xl mt-6 mb-4">{name}</div>
-                        <div className="bg-red p-8"><img src={image} width="350" height="425" /></div>
+                        <div className="bg-cadetblue p-6 rounded"><img src={image} width="350" height="425" /></div>
                     </div>
                     <div className="flex flex-col items-start justify-start mt-4 text-white text-lg">
                         <ul className="list-disc ml-6">
