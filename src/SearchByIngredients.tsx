@@ -71,7 +71,7 @@ export function SearchByIngredients(props: any){
             if (categories.includes(current))
                 button = <button onClick={handleClick} value={current} key={current} className="w-full block text-lg text-left hover:bg-lightred transition duration-100"><div className="pl-2">{current}</div></button>
             else
-                button = <button onClick={handleClick} value={current} key={current} className="w-full block text-lg text-left hover:bg-lightred transition duration-100"><div className="group pl-2 flex items-stretch justify-between"><div>{current}</div><div className="text-base -mr-10 text-cadetblue pt-0.5 pl-1.5 pr-2 group-hover:bg-darkred group-hover:text-white group-hover:-translate-x-10 transition duration-300">Add</div></div></button>
+                button = <button onClick={handleClick} value={current} key={current} className="w-full truncate block text-lg text-left hover:bg-lightred transition duration-100"><div className="group pl-2 flex items-stretch justify-between"><div>{current}</div><div className="text-base -mr-12 text-cadetblue pt-0.5 pl-1.5 pr-2 group-hover:bg-darkred group-hover:text-white group-hover:-translate-x-12 transition duration-300">Add</div></div></button>
             previous.push(button);
             return previous;
         }, []);
@@ -81,7 +81,7 @@ export function SearchByIngredients(props: any){
     function displayBarButtons(): Array<ReactElement>{
         const currentBar: Array<string> = props.myBar;
         const barButtons = currentBar.map(ingredient => {
-            return <button onClick={() => props.removeFromMyBar(ingredient)} key={ingredient} className="w-full block text-lg text-left hover:bg-lightred transition duration-100"><div className="group pl-2 flex items-stretch justify-between"><div>{ingredient}</div><div className="relative -mr-12 text-base text-cadetblue pl-2 pr-2 pt-0.5 group-hover:bg-darkred group-hover:text-white group-hover:-translate-x-12 origin-right transition duration-300">Remove</div></div></button>
+            return <button onClick={() => props.removeFromMyBar(ingredient)} key={ingredient} className="w-full truncate block text-lg text-left hover:bg-lightred transition duration-100"><div className="group pl-2 flex items-stretch justify-between"><div>{ingredient}</div><div className="relative -mr-12 text-base text-cadetblue pl-2 pr-2 pt-0.5 group-hover:bg-darkred group-hover:text-white group-hover:-translate-x-12 origin-right transition duration-300">Remove</div></div></button>
         })
         return barButtons;
     }
