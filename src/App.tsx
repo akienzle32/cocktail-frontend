@@ -8,9 +8,9 @@ function App() {
 
   function displayLink(){
     if (loggedIn)
-      return <Link to="/login" className="px-6 pb-1 rounded hover:bg-red">Login</Link>
+      return <Link to="/login" className="px-6 pb-1 rounded hover:bg-darkred">Login</Link>
     else
-      return <Link to="/profile" className="px-6 pb-1 rounded hover:bg-red">My profile</Link>
+      return <Link to="/profile" className="px-6 pb-1 rounded hover:bg-darkred">My profile</Link>
   }
 
   const rightLink = displayLink();

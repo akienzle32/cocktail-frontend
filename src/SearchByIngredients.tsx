@@ -105,21 +105,21 @@ export function SearchByIngredients(props: any){
         <div className="flex items-center justify-center text-white">
             <div className="mr-4">
                 <p className="text-center text-xl text-darkcadetblue font-bold mb-1">Ingredients</p>
-                <div className="flex flex-col items-start justify-start overflow-scroll w-72 h-80 bg-cadetblue border-solid border-2 border-red">
+                <div className="flex flex-col items-start justify-start overflow-scroll w-72 h-80 bg-cadetblue border-solid border-2 border-darkcadetblue">
                     <div className="w-full flex flex-col items-start justify-start">
                         {categoryButtons}
                         <br></br>
                     </div>
-                    <button className="w-20 ml-1.5 pr-1 rounded text-lg bg-red hover:bg-lightred" onClick={goBack}>{backButton}</button>
+                    <button className="w-20 ml-1.5 pr-1 rounded text-lg bg-darkred hover:bg-red" onClick={goBack}>{backButton}</button>
                 </div>
             </div>
             <div>
                 <p className="text-center text-xl text-darkcadetblue font-bold mb-1">My bar</p>
-                <div className="flex flex-col items-start overflow-scroll justify-between w-72 h-80 bg-cadetblue border-solid border-2 border-red">
+                <div className="flex flex-col items-start overflow-scroll justify-between w-72 h-80 bg-cadetblue border-solid border-2 border-darkcadetblue">
                     <div className="w-full flex flex-col items-start justify-start">
                         {barButtons}
                     </div>
-                    <button onClick={handleSubmit} className="w-full h-9 text-xl pl-2 bg-red border-2-darkred hover:bg-lightred transition duration-100">Search for cocktails</button>
+                    <button onClick={handleSubmit} className="w-full h-9 text-xl pl-2 bg-darkred hover:bg-red">Search for cocktails</button>
                 </div>
             </div>
         </div>
