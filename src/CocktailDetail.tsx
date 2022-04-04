@@ -2,7 +2,7 @@ import { useEffect, useState, ReactElement } from "react";
 import { useLocation } from "react-router";
 import Cocktail from "./interfaces";
 
-export function CocktailDetail(){
+export function CocktailDetail(props: any){
     const location = useLocation();
     const cocktailId = location.pathname.slice(1);
 
@@ -51,6 +51,18 @@ export function CocktailDetail(){
         return ingredientsAndMeasuresList;
     }
 
+    function getSaveBtnColor(){
+        const saved = props.savedCocktails.includes(cocktailId)
+        const color = saved ? "bg-darkcadetblue" : "bg-cadetblue";
+        return color;
+    }
+
+    function getSaveBtnText(){
+        const saved = props.savedCocktails.includes(cocktailId);
+        const text = saved ? "Saved" : "Save";
+        return text;
+    }
+
     const name = details.name;
     const image = details.image;
     const instructions = details.instructions;
@@ -58,13 +70,18 @@ export function CocktailDetail(){
     const measures: Array<string> = extractValuesFromJson(details, "measure");
     const ingredientsAndMeasures: Array<Array<string>> = zip(ingredients, measures);
     const ingredientsAndMeasuresList = createIngredientsAndMeasuresList(ingredientsAndMeasures);
+    const saveBtnColor = getSaveBtnColor();
+    const saveBtnText = getSaveBtnText();
 
     return (
         <div className="overflow-scroll flex flex-col items-center justify-center">
-            <div className="w-1/2 flex flex-col items-center justify-center bg-lightred pb-16 border-x border-solid border-x-darkred">
+            <div className="w-1/2 flex flex-col items-center justify-center bg-red pb-16">
                 <div className="w-2/3 flex flex-col items-center justify-center">
                     <div className="flex flex-col items-center justify-center text-white">
-                        <div className="text-3xl mt-6 mb-4">{name}</div>
+                        <div>
+                            <div className="text-3xl mt-6 mb-4 ml-32 mr-8 inline-block">{name}</div>
+                            <button onClick={() => props.toggleSavedCocktail(cocktailId)} className={`${saveBtnColor} inline-block ml-14 px-2 py-1 hover:bg-darkcadetblue rounded`}>{saveBtnText}</button>
+                        </div>
                         <div className="bg-cadetblue p-6 rounded"><img src={image} width="350" height="425" /></div>
                     </div>
                     <div className="flex flex-col items-start justify-start mt-4 text-white text-lg">
