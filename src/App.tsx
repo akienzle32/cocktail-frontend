@@ -23,7 +23,7 @@ function App() {
           <li className="text-xl float-right mr-20 mt-6">{rightLink}</li>
         </ul>
       </div>
-      <Home />
+      <Home loggedIn={loggedIn} />
       <Outlet />
     </div>
   );

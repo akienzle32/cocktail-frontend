@@ -6,8 +6,9 @@ import { CocktailDetail } from './CocktailDetail';
 import { Login } from './Login';
 import { Profile } from './Profile';
 
-export function Home(){
+export function Home(props: any){
     const [ myBar, setMyBar ] = useState<Array<string>>([]);
+    const [ savedCocktails, setSavedCocktails ] = useState<Array<string>>([]);
     const [ searchByName, setSearchByName ] = useState<boolean>(true);
 
     function addToMyBar(ingredient: string){
@@ -22,12 +23,22 @@ export function Home(){
         setMyBar(newBar);
     }
 
+    function toggleSavedCocktail(cocktailId: string){
+        const oldSavedCocktails: Array<string> = savedCocktails;
+        let newSavedCocktails;
+        if (oldSavedCocktails.includes(cocktailId))
+            newSavedCocktails = oldSavedCocktails.filter(id => id !== cocktailId);
+        else
+            newSavedCocktails = oldSavedCocktails.concat(cocktailId);
+        setSavedCocktails(newSavedCocktails);
+    }
+
     return (
         <div className="flex flex-col items-center justify-center">
             <Routes>
                 <Route path="profile" element={<Profile />}></Route>
                 <Route path="login" element={<Login />}></Route>
-                <Route path=":cocktailId" element={<CocktailDetail />}></Route>
+                <Route path=":cocktailId" element={<CocktailDetail toggleSavedCocktail={toggleSavedCocktail} savedCocktails={savedCocktails} />}></Route>
                 <Route path="/" element={<Search myBar={myBar} searchByName={searchByName} setSearchByName={setSearchByName} addToMyBar={addToMyBar} removeFromMyBar={removeFromMyBar} />}></Route>
             </Routes>
         </div>
