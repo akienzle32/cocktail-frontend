@@ -71,7 +71,7 @@ export function SearchByIngredients(props: any){
             if (categories.includes(current))
                 button = <button onClick={handleClick} value={current} key={current} className="w-full block text-lg text-left hover:bg-lightred transition duration-100"><div className="pl-2">{current}</div></button>
             else
-                button = <button onClick={handleClick} value={current} key={current} className="w-full block text-lg text-left hover:bg-lightred transition duration-100"><div className="group pl-2 flex items-stretch justify-between"><div>{current}</div><div className="text-base -mr-10 text-red pt-0.5 pl-1.5 pr-2 group-hover:bg-darkred group-hover:text-white group-hover:-translate-x-10 transition duration-300">Add</div></div></button>
+                button = <button onClick={handleClick} value={current} key={current} className="w-full block text-lg text-left hover:bg-lightred transition duration-100"><div className="group pl-2 flex items-stretch justify-between"><div>{current}</div><div className="text-base -mr-10 text-cadetblue pt-0.5 pl-1.5 pr-2 group-hover:bg-darkred group-hover:text-white group-hover:-translate-x-10 transition duration-300">Add</div></div></button>
             previous.push(button);
             return previous;
         }, []);
@@ -81,25 +81,10 @@ export function SearchByIngredients(props: any){
     function displayBarButtons(): Array<ReactElement>{
         const currentBar: Array<string> = props.myBar;
         const barButtons = currentBar.map(ingredient => {
-            return <button onClick={() => props.removeFromMyBar(ingredient)} key={ingredient} className="w-full block text-lg text-left hover:bg-lightred transition duration-100"><div className="group pl-2 flex items-stretch justify-between"><div>{ingredient}</div><div className="relative -mr-10 text-base text-red pl-2 pr-2 pt-0.5 group-hover:bg-darkred group-hover:text-white group-hover:-translate-x-10 origin-right transition duration-300">Remove</div></div></button>
+            return <button onClick={() => props.removeFromMyBar(ingredient)} key={ingredient} className="w-full block text-lg text-left hover:bg-lightred transition duration-100"><div className="group pl-2 flex items-stretch justify-between"><div>{ingredient}</div><div className="relative -mr-12 text-base text-cadetblue pl-2 pr-2 pt-0.5 group-hover:bg-darkred group-hover:text-white group-hover:-translate-x-12 origin-right transition duration-300">Remove</div></div></button>
         })
         return barButtons;
     }
-
-    /*
-
-    function createHiddenInputs(){
-        const currentBar: Array<string> = props.myBar;
-        const formInputs = currentBar.map(ingredient => {
-            if (spirits.includes(ingredient))
-                return <input type="hidden" name ="spirit" value={ingredient}></input>
-            else
-                return <input type="hidden" name="ingredient" value={ingredient}></input>
-        })
-        return formInputs;
-    }
-
-    */
 
     function goBack(e: React.MouseEvent){
         setIngredientButtons('Categories');
@@ -118,23 +103,23 @@ export function SearchByIngredients(props: any){
     //const formInputs = createHiddenInputs();
     return (
         <div className="flex items-center justify-center text-white">
-            <div>
-                <p className="text-center text-xl">Ingredients</p>
-                <div className="flex flex-col items-start justify-start overflow-scroll w-72 h-80 bg-red border-solid border-l border-r border-t border-b border-l-white">
+            <div className="mr-4">
+                <p className="text-center text-xl text-darkcadetblue font-bold mb-1">Ingredients</p>
+                <div className="flex flex-col items-start justify-start overflow-scroll w-72 h-80 bg-cadetblue border-solid border-2 border-red">
                     <div className="w-full flex flex-col items-start justify-start">
                         {categoryButtons}
                         <br></br>
                     </div>
-                    <button className="w-20 pr-1 text-lg bg-darkred hover:bg-lightred" onClick={goBack}>{backButton}</button>
+                    <button className="w-20 ml-1.5 pr-1 rounded text-lg bg-red hover:bg-lightred" onClick={goBack}>{backButton}</button>
                 </div>
             </div>
             <div>
-                <p className="text-center text-xl">My bar</p>
-                <div className="flex flex-col items-start overflow-scroll justify-between w-72 h-80 bg-red border-solid border-r border-t border-b border-r-white">
+                <p className="text-center text-xl text-darkcadetblue font-bold mb-1">My bar</p>
+                <div className="flex flex-col items-start overflow-scroll justify-between w-72 h-80 bg-cadetblue border-solid border-2 border-red">
                     <div className="w-full flex flex-col items-start justify-start">
                         {barButtons}
                     </div>
-                    <button onClick={handleSubmit} className="w-full h-9 text-xl pl-2 bg-darkred hover:bg-lightred transition duration-100">Search for cocktails</button>
+                    <button onClick={handleSubmit} className="w-full h-9 text-xl pl-2 bg-red border-2-darkred hover:bg-lightred transition duration-100">Search for cocktails</button>
                 </div>
             </div>
         </div>
