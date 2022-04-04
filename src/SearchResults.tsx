@@ -1,8 +1,15 @@
-import { ReactElement } from 'react';
+import { ReactElement, RefObject, useRef, useEffect } from 'react';
 import { CocktailCard } from './CocktailCard';
 import Cocktail from './interfaces';
 
 export function SearchResults(props: any){
+
+    const resultsRef = useRef<HTMLDivElement>(null)
+
+    useEffect(() => {
+        if (props.searchResults.length)
+            resultsRef.current?.scrollIntoView({behavior: "smooth"});
+    })
 
     function createCocktailCards(): Array<ReactElement> {
         const cocktailDetails: Array<Cocktail> = props.searchResults;
@@ -15,7 +22,7 @@ export function SearchResults(props: any){
     const cards = createCocktailCards();
 
     return (
-        <div className="mt-8 flex flex-wrap justify-center items-center pb-20">
+        <div ref={resultsRef} className="mt-8 flex flex-wrap justify-center items-center pb-20">
             {cards}
         </div>
     );
