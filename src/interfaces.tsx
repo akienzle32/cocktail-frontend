@@ -1,5 +1,14 @@
+import { type } from "os";
+
 interface Cocktail {
     [key: string]: string;
 }
 
-export default Cocktail
+interface Category {
+    [key: string]: string;
+}
+
+export type {
+    Cocktail,
+    Category,
+}

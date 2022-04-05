@@ -1,13 +1,29 @@
-import React, { useState, ChangeEvent, EventHandler, ReactElement, FormEvent } from "react";
+import React, { useState, ReactElement, FormEvent, useEffect } from "react";
+import { Category } from './interfaces';
 
 export function SearchByIngredients(props: any){
-    const categories = ['Spirits', 'Liqueurs', 'Fruit juices'];
+    //const categories = ['Spirits', 'Liqueurs', 'Fruit juices'];
     const spirits = ['Bourbon', 'Gin', 'Tequila', 'Vodka', 'Rye whiskey', 'White rum'];
     const fruitJuices = ['Lemon juice', 'Lime juice', 'Grapefruit juice'];
     const liqueurs = ['Maraschino', 'Campari', 'Orange liqueur'];
 
+    const [ categories, setCategories ] = useState<Array<string>>([]);
     const [ ingredientButtons, setIngredientButtons ] = useState('Categories');
-    //const [ myBar, setMyBar ] = useState<Array<string>>([]);
+
+    useEffect(() => {
+        fetch(`${process.env.REACT_APP_API}cocktails/ingredients/categories`, {
+            method: 'GET',
+            mode: 'cors',
+        })
+        .then(response => response.json())
+        .then((data: Array<Category>) => {
+            let categoryArray: Array<string> = [];
+            data.forEach(datum => {
+                categoryArray.push(datum.category);
+            })
+            setCategories(categoryArray);
+        })
+    })
 
     function handleClick(e: React.MouseEvent){
         const button = e.currentTarget as HTMLButtonElement;
