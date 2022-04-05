@@ -1,24 +1,32 @@
-import { FormEvent } from "react";
+import { FormEvent, useRef } from "react";
 
-export function Login(){
+export function Login(props: any){
+
+    const formRef = useRef<HTMLFormElement>(null);
 
     function onSubmit(e: FormEvent){
         e.preventDefault();
         const formData = new FormData(e.target as HTMLFormElement);
-        
+        const username = formData.get('username');
+
         fetch(`${process.env.REACT_APP_API}cocktails/api-token-auth/`, {
             method: 'POST',
             mode: 'cors',
             body: formData,
         })
         .then(response => response.json())
-        .then(data => console.log(data))
+        .then(data => {
+            props.setToken(data.token);
+            props.setLoggedIn(true);
+            props.setUsername(username);
+            formRef.current?.reset();
+        })
     }
 
     return (
         <div className="flex flex-col items-center justify-center bg-darkred mt-8 w-1/3 pb-10 rounded">
             <div className="mt-6 mb-6 text-center">
-                <form onSubmit={onSubmit} className="flex flex-col items-start justify-center text-lg mt-4 text-black">
+                <form ref={formRef} onSubmit={onSubmit} className="flex flex-col items-start justify-center text-lg mt-4 text-black">
                     <label className="text-white" htmlFor="username">Username:</label>
                     <input className="m-2 w-60 pl-1 rounded outline-cadetblue" name="username" type="text" id="username"></input>
                     <label className="text-white"htmlFor="password">Password:</label>
