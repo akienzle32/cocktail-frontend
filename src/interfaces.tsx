@@ -12,8 +12,14 @@ interface Ingredient {
     [key: string]: string;
 }
 
+interface SavedCocktail {
+    cocktail: Number;
+    user: string;
+}
+
 export type {
     Cocktail,
     Category,
     Ingredient,
+    SavedCocktail,
 }
