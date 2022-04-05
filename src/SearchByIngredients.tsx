@@ -43,6 +43,8 @@ export function SearchByIngredients(props: any){
             })
             console.log(ingredientArray);
             setIngredientButtons(ingredientArray);
+            if (category === 'Spirits')
+                setSpirits(ingredientArray);
         })
     }
 
