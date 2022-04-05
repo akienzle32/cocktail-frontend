@@ -25,60 +25,12 @@ export function Home(props: any){
         setMyBar(newBar);
     }
 
-    function toggleSavedCocktail(cocktailId: string){
-        const oldSavedCocktails = savedCocktails;
-        let newSavedCocktails;
-        const intId = parseInt(cocktailId)
-        if (oldSavedCocktails.includes(intId)){
-            // DELETE request
-            const formData = new FormData()
-            formData.append('cocktail', cocktailId);
-            formData.append('username', username);
-
-            fetch(`${process.env.REACT_APP_API}cocktails/remove-cocktail`, {
-                method: 'DELETE',
-                mode: 'cors',
-                headers: {
-                    'Authorization': `Token ${token}`,
-                },
-                body: formData,
-            })
-            .then(response => {
-                if (response.status === 200){
-                    newSavedCocktails = oldSavedCocktails.filter(id => id !== intId);
-                    setSavedCocktails(newSavedCocktails);
-                }
-            })
-
-        } else {
-            // POST request
-            const formData = new FormData()
-            formData.append('cocktail', cocktailId);
-            formData.append('username', username);
-
-            fetch(`${process.env.REACT_APP_API}cocktails/save-cocktail`, {
-                method: 'POST',
-                mode: 'cors',
-                headers: {
-                    'Authorization': `Token ${token}`,
-                },
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data.cocktail);
-                const newSavedCocktails = oldSavedCocktails.concat(data.cocktail);
-                setSavedCocktails(newSavedCocktails);
-            })
-        }
-    }
-
     return (
         <div className="flex flex-col items-center justify-center">
             <Routes>
-                <Route path="profile" element={<Profile token={token} setSavedCocktails={setSavedCocktails} />}></Route>
+                <Route path="profile" element={<Profile token={token} savedCocktails={savedCocktails} setSavedCocktails={setSavedCocktails} />}></Route>
                 <Route path="login" element={<Login setToken={setToken} setLoggedIn={props.setLoggedIn} setUsername={setUsername} />}></Route>
-                <Route path=":cocktailId" element={<CocktailDetail toggleSavedCocktail={toggleSavedCocktail} savedCocktails={savedCocktails} loggedIn={props.loggedIn} />}></Route>
+                <Route path=":cocktailId" element={<CocktailDetail loggedIn={props.loggedIn} username={username} token={token} savedCocktails={savedCocktails} setSavedCocktails={setSavedCocktails} />}></Route>
                 <Route path="/" element={<Search myBar={myBar} searchByName={searchByName} setSearchByName={setSearchByName} addToMyBar={addToMyBar} removeFromMyBar={removeFromMyBar} />}></Route>
             </Routes>
         </div>
