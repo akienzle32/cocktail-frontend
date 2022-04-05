@@ -8,7 +8,12 @@ interface Category {
     [key: string]: string;
 }
 
+interface Ingredient {
+    [key: string]: string;
+}
+
 export type {
     Cocktail,
     Category,
+    Ingredient,
 }

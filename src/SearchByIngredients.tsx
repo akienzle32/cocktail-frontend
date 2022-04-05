@@ -1,14 +1,18 @@
 import React, { useState, ReactElement, FormEvent, useEffect } from "react";
-import { Category } from './interfaces';
+import { Cocktail, Category, Ingredient } from './interfaces';
 
 export function SearchByIngredients(props: any){
     //const categories = ['Spirits', 'Liqueurs', 'Fruit juices'];
-    const spirits = ['Bourbon', 'Gin', 'Tequila', 'Vodka', 'Rye whiskey', 'White rum'];
-    const fruitJuices = ['Lemon juice', 'Lime juice', 'Grapefruit juice'];
-    const liqueurs = ['Maraschino', 'Campari', 'Orange liqueur'];
+    //const spirits = ['Bourbon', 'Gin', 'Tequila', 'Vodka', 'Rye whiskey', 'White rum'];
+    //const fruitJuices = ['Lemon juice', 'Lime juice', 'Grapefruit juice'];
+    //const liqueurs = ['Maraschino', 'Campari', 'Orange liqueur'];
 
+
+    // Should only need category array. Back button can just send another fetch request
+    // to category endpoint
     const [ categories, setCategories ] = useState<Array<string>>([]);
-    const [ ingredientButtons, setIngredientButtons ] = useState('Categories');
+    const [ spirits, setSpirits ] = useState<Array<string>>([]);
+    const [ ingredientButtons, setIngredientButtons ] = useState<Array<string>>([]);
 
     useEffect(() => {
         fetch(`${process.env.REACT_APP_API}cocktails/ingredients/categories`, {
@@ -22,19 +26,28 @@ export function SearchByIngredients(props: any){
                 categoryArray.push(datum.category);
             })
             setCategories(categoryArray);
+            setIngredientButtons(categoryArray);
         })
-    })
+    }, [])
 
-    function handleClick(e: React.MouseEvent){
-        const button = e.currentTarget as HTMLButtonElement;
-        const buttonName = button.value;
-        if (categories.includes(buttonName)){
-            setIngredientButtons(buttonName);
-        } else {
-            props.addToMyBar(buttonName);
-        }
+    function fetchIngredients(e: React.MouseEvent, category: string){
+        fetch(`${process.env.REACT_APP_API}cocktails/ingredients/${category}`, {
+            method: 'GET',
+            mode: 'cors',
+        })
+        .then(response => response.json())
+        .then((data: Array<Ingredient>) => {
+            let ingredientArray: Array<string> = [];
+            data.forEach(datum => {
+                ingredientArray.push(datum.name);
+            })
+            console.log(ingredientArray);
+            setIngredientButtons(ingredientArray);
+        })
     }
 
+
+    // Need to add specific state for spirits because they matter for queries
     function createQueryString(){
         const currentBar: Array<string> = props.myBar;
         const queryString = currentBar.map(ingredient => {
@@ -63,34 +76,13 @@ export function SearchByIngredients(props: any){
     }
 
     function displayIngredientButtons(): Array<ReactElement> {
-        let labels = []
-
-        switch(ingredientButtons){
-            case 'Categories':
-                labels = categories;
-                break;
-            case 'Spirits':
-                labels = spirits;
-                break;
-            case 'Fruit juices':
-                labels = fruitJuices;
-                break;
-            case 'Liqueurs':
-                labels = liqueurs;
-                break;
-            default:
-                labels = categories;
-                break;
-        }
-        const nextIngredientButtons = labels.reduce((previous: Array<ReactElement>, current: string) => {
-            let button: ReactElement;
-            if (categories.includes(current))
-                button = <button onClick={handleClick} value={current} key={current} className="w-full block text-lg text-left hover:bg-lightred transition duration-100"><div className="pl-2">{current}</div></button>
+        const currentIngredients = ingredientButtons;
+        const nextIngredientButtons = currentIngredients.map((ingredient: string) => {
+            if (categories.includes(ingredient))
+                return <button onClick={(e) => fetchIngredients(e, ingredient)} value={ingredient} key={ingredient} className="w-full block text-lg text-left hover:bg-lightred transition duration-100"><div className="pl-2">{ingredient}</div></button>
             else
-                button = <button onClick={handleClick} value={current} key={current} className="w-full truncate block text-lg text-left hover:bg-lightred transition duration-100"><div className="group pl-2 flex items-stretch justify-between"><div>{current}</div><div className="text-base -mr-12 text-cadetblue pt-0.5 pl-1.5 pr-2 group-hover:bg-darkred group-hover:text-white group-hover:-translate-x-12 transition duration-300">Add</div></div></button>
-            previous.push(button);
-            return previous;
-        }, []);
+                return <button onClick={() => props.addToMyBar(ingredient)} value={ingredient} key={ingredient} className="w-full truncate block text-lg text-left hover:bg-lightred transition duration-100"><div className="group pl-2 flex items-stretch justify-between"><div>{ingredient}</div><div className="text-base -mr-12 text-cadetblue pt-0.5 pl-1.5 pr-2 group-hover:bg-darkred group-hover:text-white group-hover:-translate-x-12 transition duration-300">Add</div></div></button>
+        })
         return nextIngredientButtons;
     }
 
@@ -102,21 +94,22 @@ export function SearchByIngredients(props: any){
         return barButtons;
     }
 
+    // Write this function
     function goBack(e: React.MouseEvent){
-        setIngredientButtons('Categories');
+        //setIngredientButtons('Categories');
     }
 
     function displayGoBack(){
         const buttons = ingredientButtons;
         let text = '';
-        if (buttons !== 'Categories')
+        if (!buttons.includes('Spirits'))
             text = 'Go back';
         return text;
     }
+
     const categoryButtons = displayIngredientButtons();
     const barButtons = displayBarButtons();
     const backButton = displayGoBack();
-    //const formInputs = createHiddenInputs();
     return (
         <div className="flex items-center justify-center text-white">
             <div className="mr-4">
