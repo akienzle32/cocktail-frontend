@@ -10,6 +10,8 @@ export function Home(props: any){
     const [ myBar, setMyBar ] = useState<Array<string>>([]);
     const [ savedCocktails, setSavedCocktails ] = useState<Array<string>>([]);
     const [ searchByName, setSearchByName ] = useState<boolean>(true);
+    const [ token, setToken ] = useState<string>();
+    const [ username, setUsername ] = useState<string>();
 
     function addToMyBar(ingredient: string){
         if (!myBar.includes(ingredient)){
@@ -37,7 +39,7 @@ export function Home(props: any){
         <div className="flex flex-col items-center justify-center">
             <Routes>
                 <Route path="profile" element={<Profile />}></Route>
-                <Route path="login" element={<Login />}></Route>
+                <Route path="login" element={<Login setToken={setToken} setLoggedIn={props.setLoggedIn} setUsername={setUsername} />}></Route>
                 <Route path=":cocktailId" element={<CocktailDetail toggleSavedCocktail={toggleSavedCocktail} savedCocktails={savedCocktails} />}></Route>
                 <Route path="/" element={<Search myBar={myBar} searchByName={searchByName} setSearchByName={setSearchByName} addToMyBar={addToMyBar} removeFromMyBar={removeFromMyBar} />}></Route>
             </Routes>

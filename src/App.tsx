@@ -4,10 +4,10 @@ import { Home } from './Home';
 import './App.css';
 
 function App() {
-  const [ loggedIn, setLoggedIn ] = useState(true);
+  const [ loggedIn, setLoggedIn ] = useState(false);
 
   function displayLink(){
-    if (loggedIn)
+    if (!loggedIn)
       return <Link to="/login" className="px-6 pb-1 rounded hover:bg-darkred">Login</Link>
     else
       return <Link to="/profile" className="px-6 pb-1 rounded hover:bg-darkred">My profile</Link>
@@ -23,7 +23,7 @@ function App() {
           <li className="text-xl float-right mr-20 mt-6">{rightLink}</li>
         </ul>
       </div>
-      <Home loggedIn={loggedIn} />
+      <Home loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
       <Outlet />
     </div>
   );
