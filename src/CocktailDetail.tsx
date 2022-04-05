@@ -1,6 +1,6 @@
 import { useEffect, useState, ReactElement } from "react";
 import { useLocation } from "react-router";
-import Cocktail from "./interfaces";
+import { Cocktail } from "./interfaces";
 
 export function CocktailDetail(props: any){
     const location = useLocation();

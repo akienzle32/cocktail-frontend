@@ -1,6 +1,6 @@
 import { ReactElement, RefObject, useRef, useEffect } from 'react';
 import { CocktailCard } from './CocktailCard';
-import Cocktail from './interfaces';
+import { Cocktail } from './interfaces';
 
 export function SearchResults(props: any){
 
