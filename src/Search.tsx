@@ -1,11 +1,32 @@
-import { useState, ReactElement } from "react";
+import { useState, useEffect, ReactElement } from "react";
 import { SearchByIngredients } from './SearchByIngredients';
 import { SearchByName } from './SearchByName';
 import { SearchResults } from "./SearchResults";
+import { SavedCocktail } from "./interfaces";
 
 export function Search(props: any){
     const [ cocktailSearch, setCocktailSearch ] = useState('');
     const [ searchResults, setSearchResults ] = useState([]);
+
+    useEffect(() => {
+        if (props.loggedIn){
+            fetch(`${process.env.REACT_APP_API}cocktails/profile`, {
+                method: 'GET',
+                mode: 'cors',
+                headers: {
+                    'Authorization': `Token ${props.token}`,
+                },
+            })
+            .then(request => request.json())
+            .then(data => {
+                let cocktailIdArray: Array<Number> = [];
+                data.forEach((object: SavedCocktail) => {
+                    cocktailIdArray.push(object.cocktail);
+                })
+                props.setSavedCocktails(cocktailIdArray);
+            })
+        }
+    }, [])
 
     function fetchCocktail(search: string) {
         fetch(`${process.env.REACT_APP_API}cocktails/${search}`, {
