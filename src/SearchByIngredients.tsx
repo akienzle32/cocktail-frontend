@@ -94,9 +94,8 @@ export function SearchByIngredients(props: any){
         return barButtons;
     }
 
-    // Write this function
     function goBack(e: React.MouseEvent){
-        //setIngredientButtons('Categories');
+        setIngredientButtons(categories);
     }
 
     function displayGoBack(){
