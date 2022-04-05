@@ -119,7 +119,7 @@ export function SearchByIngredients(props: any){
                     <div className="w-full flex flex-col items-start justify-start">
                         {barButtons}
                     </div>
-                    <button onClick={handleSubmit} className="w-full h-9 text-xl pl-2 bg-darkred hover:bg-red">Search for cocktails</button>
+                    <button onClick={handleSubmit} className="w-full h-9 text-xl pl-2 border-2 border-solid border-l-transparent border-r-transparent border-b-transparent border-t-darkcadetblue bg-darkred hover:bg-lightred hover:border-t-darkcadetblue">Search for cocktails</button>
                 </div>
             </div>
         </div>
