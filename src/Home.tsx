@@ -28,19 +28,22 @@ export function Home(props: any){
     function toggleSavedCocktail(cocktailId: string){
         const oldSavedCocktails: Array<string> = savedCocktails;
         let newSavedCocktails;
-        if (oldSavedCocktails.includes(cocktailId))
+        if (oldSavedCocktails.includes(cocktailId)){
+            // DELETE request
             newSavedCocktails = oldSavedCocktails.filter(id => id !== cocktailId);
-        else
+        } else {
+            // POST request
             newSavedCocktails = oldSavedCocktails.concat(cocktailId);
+        }
         setSavedCocktails(newSavedCocktails);
     }
 
     return (
         <div className="flex flex-col items-center justify-center">
             <Routes>
-                <Route path="profile" element={<Profile />}></Route>
+                <Route path="profile" element={<Profile token={token} />}></Route>
                 <Route path="login" element={<Login setToken={setToken} setLoggedIn={props.setLoggedIn} setUsername={setUsername} />}></Route>
-                <Route path=":cocktailId" element={<CocktailDetail toggleSavedCocktail={toggleSavedCocktail} savedCocktails={savedCocktails} />}></Route>
+                <Route path=":cocktailId" element={<CocktailDetail toggleSavedCocktail={toggleSavedCocktail} savedCocktails={savedCocktails} loggedIn={props.loggedIn} />}></Route>
                 <Route path="/" element={<Search myBar={myBar} searchByName={searchByName} setSearchByName={setSearchByName} addToMyBar={addToMyBar} removeFromMyBar={removeFromMyBar} />}></Route>
             </Routes>
         </div>
