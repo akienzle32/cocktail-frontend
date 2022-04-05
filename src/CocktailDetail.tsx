@@ -56,13 +56,6 @@ export function CocktailDetail(props: any){
         const color = saved ? "bg-darkcadetblue" : "bg-cadetblue";
         return color;
     }
-
-    function getSaveBtnText(){
-        const saved = props.savedCocktails.includes(cocktailId);
-        const text = saved ? "Saved" : "Save";
-        return text;
-    }
-
     const name = details.name;
     const image = details.image;
     const instructions = details.instructions;
@@ -71,7 +64,6 @@ export function CocktailDetail(props: any){
     const ingredientsAndMeasures: Array<Array<string>> = zip(ingredients, measures);
     const ingredientsAndMeasuresList = createIngredientsAndMeasuresList(ingredientsAndMeasures);
     const saveBtnColor = getSaveBtnColor();
-    const saveBtnText = getSaveBtnText();
 
     return (
         <div className="overflow-scroll flex flex-col items-center justify-center">
@@ -80,15 +72,15 @@ export function CocktailDetail(props: any){
                     <div className="flex flex-col items-center justify-center text-white">
                         <div>
                             <div className="text-3xl mt-6 mb-4 ml-32 mr-8 inline-block">{name}</div>
-                            <button onClick={() => props.toggleSavedCocktail(cocktailId)} className={`${saveBtnColor} inline-block ml-14 px-2 py-1 hover:bg-darkcadetblue rounded`}>{saveBtnText}</button>
+                            <button onClick={() => props.toggleSavedCocktail(cocktailId)} className={`${saveBtnColor} inline-block ml-12 px-2 py-1 hover:bg-darkcadetblue rounded`}>Save</button>
                         </div>
                         <div className="bg-cadetblue p-6 rounded"><img src={image} width="350" height="425" /></div>
                     </div>
                     <div className="flex flex-col items-start justify-start mt-4 text-white text-lg">
-                        <ul className="list-disc ml-6">
+                        <ul className="list-disc ml-8">
                             {ingredientsAndMeasuresList}
                         </ul>
-                        <div className="mt-4 ml-4">{instructions}</div>
+                        <div className="mt-4 ml-6">{instructions}</div>
                     </div>
                 </div>
             </div>
