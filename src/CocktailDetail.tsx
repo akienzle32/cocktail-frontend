@@ -8,8 +8,6 @@ export function CocktailDetail(props: any){
 
     const [ details, setDetails ] = useState<Cocktail>({});
 
-    // add fetch request here to get cocktail ingredients by id
-
     useEffect(() => {
         fetch(`${process.env.REACT_APP_API}cocktails/${cocktailId}`, {
             method: 'GET',
@@ -20,6 +18,53 @@ export function CocktailDetail(props: any){
             setDetails(data);
         })
     }, [])
+
+    function toggleSavedCocktail(cocktailId: string){
+        const oldSavedCocktails: Array<Number> = props.savedCocktails;
+        let newSavedCocktails;
+        const intId = parseInt(cocktailId)
+        if (oldSavedCocktails.includes(intId)){
+            // DELETE request
+            const formData = new FormData()
+            formData.append('cocktail', cocktailId);
+            formData.append('username', props.username);
+
+            fetch(`${process.env.REACT_APP_API}cocktails/remove-cocktail`, {
+                method: 'DELETE',
+                mode: 'cors',
+                headers: {
+                    'Authorization': `Token ${props.token}`,
+                },
+                body: formData,
+            })
+            .then(response => {
+                if (response.status === 200){
+                    newSavedCocktails = oldSavedCocktails.filter(id => id !== intId);
+                    props.setSavedCocktails(newSavedCocktails);
+                }
+            })
+        } else {
+            // POST request
+            const formData = new FormData()
+            formData.append('cocktail', cocktailId);
+            formData.append('username', props.username);
+
+            fetch(`${process.env.REACT_APP_API}cocktails/save-cocktail`, {
+                method: 'POST',
+                mode: 'cors',
+                headers: {
+                    'Authorization': `Token ${props.token}`,
+                },
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data.cocktail);
+                const newSavedCocktails = oldSavedCocktails.concat(data.cocktail);
+                props.setSavedCocktails(newSavedCocktails);
+            })
+        }
+    }
 
     function extractValuesFromJson(cocktailJson: Cocktail, key: string): Array<string>{
         const entries: Array<Array<string>> = Object.entries(cocktailJson);
@@ -52,7 +97,8 @@ export function CocktailDetail(props: any){
     }
 
     function getSaveBtnColor(){
-        const saved = props.savedCocktails.includes(cocktailId)
+        const intId = parseInt(cocktailId);
+        const saved = props.savedCocktails.includes(intId);
         const color = saved ? "bg-darkcadetblue" : "bg-cadetblue";
         return color;
     }
@@ -72,7 +118,7 @@ export function CocktailDetail(props: any){
                     <div className="flex flex-col items-center justify-center text-white">
                         <div>
                             <div className="text-3xl mt-6 mb-4 ml-32 mr-8 inline-block">{name}</div>
-                            <button onClick={() => props.toggleSavedCocktail(cocktailId)} className={`${saveBtnColor} inline-block ml-12 px-2 py-1 hover:bg-darkcadetblue rounded`}>Save</button>
+                            <button onClick={() => toggleSavedCocktail(cocktailId)} className={`${saveBtnColor} inline-block ml-12 px-2 py-1 hover:bg-darkcadetblue rounded`}>Save</button>
                         </div>
                         <div className="bg-cadetblue p-6 rounded"><img src={image} width="350" height="425" /></div>
                     </div>
