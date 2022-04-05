@@ -90,12 +90,10 @@ export function SearchByIngredients(props: any){
         setLeftButtonText(categories);
     }
 
-    function displayGoBack(){
+    function displayGoBack() {
         const buttons = leftButtonText;
-        let text = '';
         if (!buttons.includes('Spirits'))
-            text = 'Go back';
-        return text;
+            return <button className="w-20 ml-1.5 pr-1 rounded text-lg bg-darkred hover:bg-red" onClick={goBack}>Go back</button>
     }
 
     const leftButtons = displayLeftButtons();
@@ -109,8 +107,8 @@ export function SearchByIngredients(props: any){
                     <div className="w-full flex flex-col items-start justify-start">
                         {leftButtons}
                         <br></br>
+                        {backButton}
                     </div>
-                    <button className="w-20 ml-1.5 pr-1 rounded text-lg bg-darkred hover:bg-red" onClick={goBack}>{backButton}</button>
                 </div>
             </div>
             <div>
