@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { SavedCocktail } from "./interfaces";
 
 export function Profile(props: any){
     useEffect(() => {
@@ -11,8 +12,14 @@ export function Profile(props: any){
             //credentials: 'include',
         })
         .then(request => request.json())
-        .then(data => console.log(data))
-    })
+        .then(data => {
+            let cocktailIdArray: Array<Number> = [];
+            data.forEach((object: SavedCocktail) => {
+                cocktailIdArray.push(object.cocktail);
+            })
+            props.setSavedCocktails(cocktailIdArray);
+        })
+    }, [])
 
 
     return (
