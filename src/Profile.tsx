@@ -12,6 +12,10 @@ export function Profile(props: any){
         return cocktailLinks;
     }
 
+    function logout(){
+
+    }
+
     const cocktailLinks = createCocktailLinks();
 
     return (
@@ -28,7 +32,7 @@ export function Profile(props: any){
                             </ul>
                         </div>
                     </div>
-                    <button className="text-2xl mt-8 ml-24 px-4 pb-1 rounded bg-cadetblue hover:bg-lightcadetblue">Log out</button>
+                    <button onClick={logout} className="text-2xl mt-8 ml-24 px-4 pb-1 rounded bg-cadetblue hover:bg-lightcadetblue">Log out</button>
                 </div>
             </div>
         </div>
