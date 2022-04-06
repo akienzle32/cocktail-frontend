@@ -12,6 +12,10 @@ export function Profile(props: any){
         return cocktailLinks;
     }
 
+    function logout(){
+
+    }
+
     const cocktailLinks = createCocktailLinks();
 
     return (
@@ -20,15 +24,15 @@ export function Profile(props: any){
                 <div className="text-3xl mt-4 ml-44 w-full">My Profile</div>
                 <div className="text-xl mt-8 ml-24">
                     <div className="bg-cadetblue py-4 pl-6 pr-8 rounded">
-                        <div className="text-xl flex items-start justify-start"><div>Username:</div><div className="ml-16">{props.username}</div></div>
+                        <div className="text-xl flex items-start justify-start"><div className="font-extrabold">Username:</div><div className="ml-16">{props.username}</div></div>
                         <div className="text-xl mt-4">
-                            <div className="mb-2">My saved cocktails:</div>
+                            <div className="mb-2 font-extrabold">My saved cocktails:</div>
                             <ul className="list-disc ml-8">
                                 {cocktailLinks}
                             </ul>
                         </div>
                     </div>
-                    <button className="text-2xl mt-8 ml-24 px-4 pb-1 rounded bg-cadetblue hover:bg-lightcadetblue">Log out</button>
+                    <button onClick={logout} className="text-2xl mt-8 ml-24 px-4 pb-1 rounded bg-cadetblue hover:bg-lightcadetblue">Log out</button>
                 </div>
             </div>
         </div>
