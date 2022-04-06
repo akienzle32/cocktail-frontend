@@ -96,12 +96,23 @@ export function CocktailDetail(props: any){
         return ingredientsAndMeasuresList;
     }
 
-    function getSaveBtnColor(){
+    function createSaveBtn(): ReactElement {
+        const loggedIn: boolean = props.loggedIn;
+        const btnColor: string = getSaveBtnColor();
+
+        if (loggedIn)
+            return <button onClick={() => toggleSavedCocktail(cocktailId)} className={`${btnColor} inline-block ml-12 px-2 py-1 hover:bg-darkcadetblue rounded`}>Save</button>
+        else
+            return <div className="inline-block ml-24 px-1 py-1"></div>
+    }
+
+    function getSaveBtnColor(): string {
         const intId = parseInt(cocktailId);
         const saved = props.savedCocktails.includes(intId);
         const color = saved ? "bg-darkcadetblue" : "bg-cadetblue";
         return color;
     }
+
     const name = details.name;
     const image = details.image;
     const instructions = details.instructions;
@@ -109,7 +120,7 @@ export function CocktailDetail(props: any){
     const measures: Array<string> = extractValuesFromJson(details, "measure");
     const ingredientsAndMeasures: Array<Array<string>> = zip(ingredients, measures);
     const ingredientsAndMeasuresList = createIngredientsAndMeasuresList(ingredientsAndMeasures);
-    const saveBtnColor = getSaveBtnColor();
+    const saveBtn = createSaveBtn();
 
     return (
         <div className="overflow-scroll flex flex-col items-center justify-center">
@@ -118,7 +129,7 @@ export function CocktailDetail(props: any){
                     <div className="flex flex-col items-center justify-center text-white">
                         <div>
                             <div className="text-3xl mt-6 mb-4 ml-32 mr-8 inline-block">{name}</div>
-                            <button onClick={() => toggleSavedCocktail(cocktailId)} className={`${saveBtnColor} inline-block ml-12 px-2 py-1 hover:bg-darkcadetblue rounded`}>Save</button>
+                            {saveBtn}
                         </div>
                         <div className="bg-cadetblue p-6 rounded"><img src={image} width="350" height="425" /></div>
                     </div>
