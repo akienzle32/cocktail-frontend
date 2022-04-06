@@ -6,6 +6,7 @@ export function SearchByIngredients(props: any){
     const [ spirits, setSpirits ] = useState<Array<string>>([]);
     const [ leftButtonText, setLeftButtonText ] = useState<Array<string>>([]);
 
+    // Fetch for initial ingredient categories
     useEffect(() => {
         fetch(`${process.env.REACT_APP_API}cocktails/ingredients/categories`, {
             method: 'GET',
@@ -36,6 +37,7 @@ export function SearchByIngredients(props: any){
         }
     }, [])
 
+    // Fetch for particular ingredients within subcategory
     function fetchIngredients(e: React.MouseEvent, category: string){
         fetch(`${process.env.REACT_APP_API}cocktails/ingredients/${category}`, {
             method: 'GET',
