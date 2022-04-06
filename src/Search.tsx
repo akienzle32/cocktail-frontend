@@ -2,11 +2,24 @@ import { useState, useEffect, ReactElement } from "react";
 import { SearchByIngredients } from './SearchByIngredients';
 import { SearchByName } from './SearchByName';
 import { SearchResults } from "./SearchResults";
-import { SavedCocktail } from "./interfaces";
+import { Ingredient, Cocktail, SavedCocktail } from "./interfaces";
 
 export function Search(props: any){
     const [ cocktailSearch, setCocktailSearch ] = useState('');
-    const [ searchResults, setSearchResults ] = useState([]);
+    const [ searchResults, setSearchResults ] = useState<Array<Cocktail>>([]);
+    const [ spirits, setSpirits ] = useState<Array<string>>([]);
+
+    useEffect(() => {
+        fetch(`${process.env.REACT_APP_API}cocktails/ingredients/spirits`, {
+            method: 'GET',
+            mode: 'cors',
+        })
+        .then(request => request.json())
+        .then(data => {
+            const spirits = data.map((object: Ingredient) => object.name);
+            setSpirits(spirits);
+        })
+    }, [])
 
     useEffect(() => {
         if (props.loggedIn){
@@ -114,7 +127,7 @@ export function Search(props: any){
         if (props.searchByName)
             return <SearchByName cocktailSearch={cocktailSearch} setCocktailSearch={setCocktailSearch} fetchCocktail={fetchCocktail} />
         else 
-            return <SearchByIngredients loggedIn={props.loggedIn} token={props.token} myBar={props.myBar} setMyBar={props.setMyBar} addToMyBar={addToMyBar} removeFromMyBar={removeFromMyBar} searchResults={searchResults} setSearchResults={setSearchResults} />
+            return <SearchByIngredients loggedIn={props.loggedIn} token={props.token} myBar={props.myBar} setMyBar={props.setMyBar} addToMyBar={addToMyBar} removeFromMyBar={removeFromMyBar} searchResults={searchResults} setSearchResults={setSearchResults} spirits={spirits} />
     }
 
     function displaySearchResults(): ReactElement {
