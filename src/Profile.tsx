@@ -1,12 +1,12 @@
-
 import { Link } from 'react-router-dom';
+import { SavedCocktail } from './interfaces';
 
 export function Profile(props: any){
 
     function createCocktailLinks(){
-        const savedCocktails: Array<number> = props.savedCocktails;
+        const savedCocktails: Array<SavedCocktail> = props.savedCocktails;
         const cocktailLinks = savedCocktails.map(cocktail => {
-            return <li><Link to={`/${cocktail}`}>Margarita</Link></li>
+            return <li key={cocktail.id}><Link to={`/${cocktail.cocktail_pk}`}>{cocktail.cocktail_name}</Link></li>
         })
         return cocktailLinks;
     }
