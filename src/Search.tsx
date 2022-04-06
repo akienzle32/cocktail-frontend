@@ -37,17 +37,65 @@ export function Search(props: any){
     }
 
     function addToMyBar(ingredient: string){
-        const myBar = props.myBar;
+        // Add conditional POST request
+        const myBar: Array<string> = props.myBar;
+        let newBar = []
         if (!myBar.includes(ingredient)){
-          const newBar = myBar.concat(ingredient);
-          props.setMyBar(newBar);  
+            if (!props.loggedIn){
+                newBar = myBar.concat(ingredient);
+                props.setMyBar(newBar);
+            } else {
+                const formData = new FormData();
+                formData.append('ingredient', ingredient);
+                formData.append('user', props.username)
+
+                fetch(`${process.env.REACT_APP_API}cocktails/save-ingredient`, {
+                    method: 'POST',
+                    mode: 'cors',
+                    headers: {
+                        'Authorization': `Token ${props.token}`,
+                    },
+                    body: formData,
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const newIngredient: string = data.ingredient;
+                    newBar = myBar.concat(newIngredient);
+                    props.setMyBar(newBar);
+                })
+            }  
         }
     }
 
     function removeFromMyBar(ingredientToRemove: string){
+        // Add conditional DELETE request
         const myBar: Array<string> = props.myBar;
-        const newBar = myBar.filter(ingredient => ingredient !== ingredientToRemove);
-        props.setMyBar(newBar);
+        let newBar = [];
+        if (myBar.includes(ingredientToRemove)){
+            if (!props.loggedIn){
+                newBar = myBar.filter(ingredient => ingredient !== ingredientToRemove);
+                props.setMyBar(newBar);
+            } else {
+                const formData = new FormData();
+                formData.append('ingredient', ingredientToRemove);
+                formData.append('user', props.username);
+
+                fetch(`${process.env.REACT_APP_API}cocktails/remove-ingredient`, {
+                    method: 'DELETE',
+                    mode: 'cors',
+                    headers: {
+                        'Authorization': `Token ${props.token}`,
+                    },
+                    body: formData,
+                })
+                .then(response => {
+                    if (response.status === 200){
+                        newBar = myBar.filter(ingredient => ingredient !== ingredientToRemove);
+                        props.setMyBar(newBar);
+                    }
+                })
+            }
+        }
     }
 
 
