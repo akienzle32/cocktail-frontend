@@ -13,6 +13,7 @@ export function Home(props: any){
     const [ token, setToken ] = useState<string>();
     const [ username, setUsername ] = useState<string>('');
 
+    // These functions can probably be moved to SearchByIngredients component
     function addToMyBar(ingredient: string){
         if (!myBar.includes(ingredient)){
           const newBar = myBar.concat(ingredient);
