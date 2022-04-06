@@ -21,7 +21,7 @@ export function CocktailDetail(props: any){
 
     function toggleSavedCocktail(cocktailId: string, cocktailName: string){
         const oldSavedCocktails: Array<SavedCocktail> = props.savedCocktails; 
-        const savedIds: Array<number> = getSavedCocktailIds(oldSavedCocktails);
+        const savedIds: Array<number> = oldSavedCocktails.map(cocktail => cocktail.cocktail_pk);
         const intId = parseInt(cocktailId)
         let newSavedCocktails;
 
@@ -110,22 +110,9 @@ export function CocktailDetail(props: any){
             return <div className="inline-block ml-24 px-1 py-1"></div>
     }
 
-    function getSavedCocktailIds(cocktails: Array<SavedCocktail>): Array<number>{
-        const savedCocktails: Array<SavedCocktail> = props.savedCocktails;
-        let idArray: Array<number> = [];
-        if (savedCocktails.length)
-            savedCocktails.map(object => {
-                Object.keys(object).forEach(key => {
-                    if (key === 'cocktail_pk')
-                        idArray.push(object[key]);
-                })
-            });
-        return idArray;
-    }   
-
     function getSaveBtnColor(): string {
         const intId = parseInt(cocktailId);
-        const savedIds = getSavedCocktailIds(props.savedCocktails);
+        const savedIds = props.savedCocktails.map((cocktail: SavedCocktail) => cocktail.cocktail_pk);
         const saved = savedIds.includes(intId);
         const color = saved ? "bg-darkcadetblue" : "bg-cadetblue";
         return color;

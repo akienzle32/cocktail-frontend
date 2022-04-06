@@ -15,6 +15,7 @@ export function Profile(props: any){
         props.setUsername('');
         props.setToken('');
         props.setLoggedIn(false);
+        // clear myBar too
     }
 
     const cocktailLinks = createCocktailLinks();

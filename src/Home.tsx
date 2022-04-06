@@ -14,17 +14,6 @@ export function Home(props: any){
     const [ username, setUsername ] = useState<string>('');
 
     // These functions can probably be moved to SearchByIngredients component
-    function addToMyBar(ingredient: string){
-        if (!myBar.includes(ingredient)){
-          const newBar = myBar.concat(ingredient);
-          setMyBar(newBar);  
-        }
-    }
-
-    function removeFromMyBar(ingredientToRemove: string){
-        const newBar = myBar.filter(ingredient => ingredient !== ingredientToRemove);
-        setMyBar(newBar);
-    }
 
     return (
         <div className="flex flex-col items-center justify-center">
@@ -32,7 +21,7 @@ export function Home(props: any){
                 <Route path="profile" element={!props.loggedIn ? <Navigate replace to="/" /> : <Profile username={username} setUsername={setUsername} token={token} setToken={setToken} setLoggedIn={props.setLoggedIn} savedCocktails={savedCocktails} />}></Route>
                 <Route path="login" element={props.loggedIn ? <Navigate replace to="/" /> : <Login setToken={setToken} setLoggedIn={props.setLoggedIn} setUsername={setUsername} />}></Route>
                 <Route path=":cocktailId" element={<CocktailDetail loggedIn={props.loggedIn} username={username} token={token} savedCocktails={savedCocktails} setSavedCocktails={setSavedCocktails} />}></Route>
-                <Route path="/" element={<Search username={username} token={token} loggedIn={props.loggedIn} myBar={myBar} searchByName={searchByName} setSearchByName={setSearchByName} addToMyBar={addToMyBar} setSavedCocktails={setSavedCocktails} removeFromMyBar={removeFromMyBar} />}></Route>
+                <Route path="/" element={<Search username={username} token={token} loggedIn={props.loggedIn} myBar={myBar} searchByName={searchByName} setMyBar={setMyBar} setSearchByName={setSearchByName} setSavedCocktails={setSavedCocktails} />}></Route>
             </Routes>
         </div>
     );

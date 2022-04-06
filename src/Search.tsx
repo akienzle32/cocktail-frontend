@@ -19,12 +19,6 @@ export function Search(props: any){
             })
             .then(request => request.json())
             .then(data => {
-                /*
-                let cocktailArray: Array<SavedCocktail> = [];
-                data.forEach((object: SavedCocktail) => {
-                    cocktailArray.push(object);
-                })
-                */
                 props.setSavedCocktails(data);
             })
         }
@@ -42,7 +36,68 @@ export function Search(props: any){
         })
     }
 
-    // add fetchByIngredients function here and pass it down as a prop to SearchByIngredients
+    function addToMyBar(ingredient: string){
+        // Add conditional POST request
+        const myBar: Array<string> = props.myBar;
+        let newBar = []
+        if (!myBar.includes(ingredient)){
+            if (!props.loggedIn){
+                newBar = myBar.concat(ingredient);
+                props.setMyBar(newBar);
+            } else {
+                const formData = new FormData();
+                formData.append('ingredient', ingredient);
+                formData.append('user', props.username)
+
+                fetch(`${process.env.REACT_APP_API}cocktails/save-ingredient`, {
+                    method: 'POST',
+                    mode: 'cors',
+                    headers: {
+                        'Authorization': `Token ${props.token}`,
+                    },
+                    body: formData,
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const newIngredient: string = data.ingredient;
+                    newBar = myBar.concat(newIngredient);
+                    props.setMyBar(newBar);
+                })
+            }  
+        }
+    }
+
+    function removeFromMyBar(ingredientToRemove: string){
+        // Add conditional DELETE request
+        const myBar: Array<string> = props.myBar;
+        let newBar = [];
+        if (myBar.includes(ingredientToRemove)){
+            if (!props.loggedIn){
+                newBar = myBar.filter(ingredient => ingredient !== ingredientToRemove);
+                props.setMyBar(newBar);
+            } else {
+                const formData = new FormData();
+                formData.append('ingredient', ingredientToRemove);
+                formData.append('user', props.username);
+
+                fetch(`${process.env.REACT_APP_API}cocktails/remove-ingredient`, {
+                    method: 'DELETE',
+                    mode: 'cors',
+                    headers: {
+                        'Authorization': `Token ${props.token}`,
+                    },
+                    body: formData,
+                })
+                .then(response => {
+                    if (response.status === 200){
+                        newBar = myBar.filter(ingredient => ingredient !== ingredientToRemove);
+                        props.setMyBar(newBar);
+                    }
+                })
+            }
+        }
+    }
+
 
     function switchToSearchByIngredients(){
         props.setSearchByName(false);
@@ -59,7 +114,7 @@ export function Search(props: any){
         if (props.searchByName)
             return <SearchByName cocktailSearch={cocktailSearch} setCocktailSearch={setCocktailSearch} fetchCocktail={fetchCocktail} />
         else 
-            return <SearchByIngredients myBar={props.myBar} addToMyBar={props.addToMyBar} removeFromMyBar={props.removeFromMyBar} searchResults={searchResults} setSearchResults={setSearchResults} />
+            return <SearchByIngredients loggedIn={props.loggedIn} token={props.token} myBar={props.myBar} setMyBar={props.setMyBar} addToMyBar={addToMyBar} removeFromMyBar={removeFromMyBar} searchResults={searchResults} setSearchResults={setSearchResults} />
     }
 
     function displaySearchResults(): ReactElement {
