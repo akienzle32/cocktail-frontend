@@ -21,9 +21,10 @@ export function CocktailDetail(props: any){
 
     function toggleSavedCocktail(cocktailId: string, cocktailName: string){
         const oldSavedCocktails: Array<SavedCocktail> = props.savedCocktails; 
-        let newSavedCocktails;
         const savedIds: Array<number> = getSavedCocktailIds(oldSavedCocktails);
         const intId = parseInt(cocktailId)
+        let newSavedCocktails;
+
         if (savedIds.includes(intId)){
             // DELETE request
             const formData = new FormData()
@@ -62,8 +63,8 @@ export function CocktailDetail(props: any){
             })
             .then(response => response.json())
             .then(data => {
-                console.log(data.cocktail);
-                const newSavedCocktails = oldSavedCocktails.concat(data.cocktail);
+                console.log(data);
+                const newSavedCocktails = oldSavedCocktails.concat(data);
                 props.setSavedCocktails(newSavedCocktails);
             })
         }
@@ -112,19 +113,21 @@ export function CocktailDetail(props: any){
     function getSavedCocktailIds(cocktails: Array<SavedCocktail>): Array<number>{
         const savedCocktails: Array<SavedCocktail> = props.savedCocktails;
         let idArray: Array<number> = [];
-        savedCocktails.map(object => {
-            Object.keys(object).forEach(key => {
-                if (key === 'cocktail_pk')
-                    idArray.push(object[key]);
-            })
-        });
+        if (savedCocktails.length)
+            savedCocktails.map(object => {
+                Object.keys(object).forEach(key => {
+                    if (key === 'cocktail_pk')
+                        idArray.push(object[key]);
+                })
+            });
         return idArray;
     }   
 
     function getSaveBtnColor(): string {
         const intId = parseInt(cocktailId);
-        const savedIds: Array<number> = getSavedCocktailIds(props.savedCocktails);
-        const color = (savedIds.includes(intId)) ? "bg-darkcadetblue" : "bg-cadetblue";
+        const savedIds = getSavedCocktailIds(props.savedCocktails);
+        const saved = savedIds.includes(intId);
+        const color = saved ? "bg-darkcadetblue" : "bg-cadetblue";
         return color;
     }
 
