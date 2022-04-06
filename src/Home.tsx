@@ -1,11 +1,10 @@
-import { useState, useEffect } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { useState } from 'react';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import './App.css';
 import { Search } from './Search';
 import { CocktailDetail } from './CocktailDetail';
 import { Login } from './Login';
 import { Profile } from './Profile';
-import { SavedCocktail } from './interfaces';
 
 export function Home(props: any){
     const [ myBar, setMyBar ] = useState<Array<string>>([]);
@@ -30,7 +29,7 @@ export function Home(props: any){
         <div className="flex flex-col items-center justify-center">
             <Routes>
                 <Route path="profile" element={<Profile token={token} savedCocktails={savedCocktails} />}></Route>
-                <Route path="login" element={<Login setToken={setToken} setLoggedIn={props.setLoggedIn} setUsername={setUsername} />}></Route>
+                <Route path="login" element={props.loggedIn ? <Navigate replace to="/" /> : <Login setToken={setToken} setLoggedIn={props.setLoggedIn} setUsername={setUsername} />}></Route>
                 <Route path=":cocktailId" element={<CocktailDetail loggedIn={props.loggedIn} username={username} token={token} savedCocktails={savedCocktails} setSavedCocktails={setSavedCocktails} />}></Route>
                 <Route path="/" element={<Search username={username} token={token} loggedIn={props.loggedIn} myBar={myBar} searchByName={searchByName} setSearchByName={setSearchByName} addToMyBar={addToMyBar} setSavedCocktails={setSavedCocktails} removeFromMyBar={removeFromMyBar} />}></Route>
             </Routes>
