@@ -8,7 +8,7 @@ import { Profile } from './Profile';
 
 export function Home(props: any){
     const [ myBar, setMyBar ] = useState<Array<string>>([]);
-    const [ savedCocktails, setSavedCocktails ] = useState<Array<Number>>([]);
+    const [ savedCocktails, setSavedCocktails ] = useState<Array<number>>([]);
     const [ searchByName, setSearchByName ] = useState<boolean>(true);
     const [ token, setToken ] = useState<string>();
     const [ username, setUsername ] = useState<string>('');

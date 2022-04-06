@@ -2,10 +2,9 @@
 import { Link } from 'react-router-dom';
 
 export function Profile(props: any){
-    //const margarita = savedCocktails[0];
 
     function createCocktailLinks(){
-        const savedCocktails: Array<Number> = props.savedCocktails;
+        const savedCocktails: Array<number> = props.savedCocktails;
         const cocktailLinks = savedCocktails.map(cocktail => {
             return <li><Link to={`/${cocktail}`}>Margarita</Link></li>
         })

@@ -19,7 +19,7 @@ export function Search(props: any){
             })
             .then(request => request.json())
             .then(data => {
-                let cocktailIdArray: Array<Number> = [];
+                let cocktailIdArray: Array<number> = [];
                 data.forEach((object: SavedCocktail) => {
                     cocktailIdArray.push(object.cocktail);
                 })

@@ -20,7 +20,7 @@ export function CocktailDetail(props: any){
     }, [])
 
     function toggleSavedCocktail(cocktailId: string){
-        const oldSavedCocktails: Array<Number> = props.savedCocktails;
+        const oldSavedCocktails: Array<number> = props.savedCocktails;
         let newSavedCocktails;
         const intId = parseInt(cocktailId)
         if (oldSavedCocktails.includes(intId)){
