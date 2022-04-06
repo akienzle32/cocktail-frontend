@@ -1,5 +1,5 @@
 import React, { useState, ReactElement, FormEvent, useEffect } from "react";
-import { Cocktail, Category, Ingredient } from './interfaces';
+import { Cocktail, Category, Ingredient, SavedIngredient } from './interfaces';
 
 export function SearchByIngredients(props: any){
     const [ categories, setCategories ] = useState<Array<string>>([]);
@@ -13,13 +13,27 @@ export function SearchByIngredients(props: any){
         })
         .then(response => response.json())
         .then((data: Array<Category>) => {
-            let categoryArray: Array<string> = [];
-            data.forEach(datum => {
-                categoryArray.push(datum.category);
-            })
-            setCategories(categoryArray);
-            setLeftButtonText(categoryArray);
+            const categories: Array<string> = data.map(category => category.category)
+            setCategories(categories);
+            setLeftButtonText(categories);
         })
+    }, [])
+
+    useEffect(() => {
+        if (props.loggedIn){
+            fetch(`${process.env.REACT_APP_API}cocktails/get-ingredients`, {
+                method: 'GET',
+                mode: 'cors',
+                headers: {
+                    'Authorization': `Token ${props.token}`,
+                },
+            })
+            .then(request => request.json())
+            .then(data => {
+                const bar = data.map((ingredient: SavedIngredient) => ingredient.ingredient);
+                props.setMyBar(bar);
+            })
+        }
     }, [])
 
     function fetchIngredients(e: React.MouseEvent, category: string){
@@ -29,14 +43,10 @@ export function SearchByIngredients(props: any){
         })
         .then(response => response.json())
         .then((data: Array<Ingredient>) => {
-            let ingredientArray: Array<string> = [];
-            data.forEach(datum => {
-                ingredientArray.push(datum.name);
-            })
-            console.log(ingredientArray);
-            setLeftButtonText(ingredientArray);
+            const ingredients: Array<string> = data.map(ingredient => ingredient.name);
+            setLeftButtonText(ingredients);
             if (category === 'Spirits')
-                setSpirits(ingredientArray);
+                setSpirits(ingredients);
         })
     }
 

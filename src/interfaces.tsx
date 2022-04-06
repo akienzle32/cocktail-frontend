@@ -19,9 +19,16 @@ interface SavedCocktail {
     user: string;
 }
 
+interface SavedIngredient {
+    id: number;
+    ingredient: string;
+    user: string;
+}
+
 export type {
     Cocktail,
     Category,
     Ingredient,
     SavedCocktail,
+    SavedIngredient,
 }

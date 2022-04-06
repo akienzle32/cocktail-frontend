@@ -19,13 +19,6 @@ export function Search(props: any){
             })
             .then(request => request.json())
             .then(data => {
-                
-                /*                
-                let cocktailArray: Array<SavedCocktail> = [];
-                data.forEach((object: SavedCocktail) => {
-                    cocktailArray.push(object);
-                })
-                */
                 props.setSavedCocktails(data);
             })
         }
@@ -43,7 +36,20 @@ export function Search(props: any){
         })
     }
 
-    // add fetchByIngredients function here and pass it down as a prop to SearchByIngredients
+    function addToMyBar(ingredient: string){
+        const myBar = props.myBar;
+        if (!myBar.includes(ingredient)){
+          const newBar = myBar.concat(ingredient);
+          props.setMyBar(newBar);  
+        }
+    }
+
+    function removeFromMyBar(ingredientToRemove: string){
+        const myBar: Array<string> = props.myBar;
+        const newBar = myBar.filter(ingredient => ingredient !== ingredientToRemove);
+        props.setMyBar(newBar);
+    }
+
 
     function switchToSearchByIngredients(){
         props.setSearchByName(false);
@@ -60,7 +66,7 @@ export function Search(props: any){
         if (props.searchByName)
             return <SearchByName cocktailSearch={cocktailSearch} setCocktailSearch={setCocktailSearch} fetchCocktail={fetchCocktail} />
         else 
-            return <SearchByIngredients myBar={props.myBar} addToMyBar={props.addToMyBar} removeFromMyBar={props.removeFromMyBar} searchResults={searchResults} setSearchResults={setSearchResults} />
+            return <SearchByIngredients myBar={props.myBar} addToMyBar={addToMyBar} removeFromMyBar={removeFromMyBar} searchResults={searchResults} setSearchResults={setSearchResults} />
     }
 
     function displaySearchResults(): ReactElement {
