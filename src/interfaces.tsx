@@ -13,7 +13,8 @@ interface Ingredient {
 }
 
 interface SavedCocktail {
-    cocktail: number;
+    cocktail_pk: number;
+    cocktail_name: string;
     user: string;
 }
 

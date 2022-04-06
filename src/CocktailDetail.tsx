@@ -1,6 +1,6 @@
 import { useEffect, useState, ReactElement } from "react";
 import { useLocation } from "react-router";
-import { Cocktail } from "./interfaces";
+import { Cocktail, SavedCocktail } from "./interfaces";
 
 export function CocktailDetail(props: any){
     const location = useLocation();
@@ -19,15 +19,17 @@ export function CocktailDetail(props: any){
         })
     }, [])
 
-    function toggleSavedCocktail(cocktailId: string){
-        const oldSavedCocktails: Array<number> = props.savedCocktails;
+    function toggleSavedCocktail(cocktailId: string, cocktailName: string){
+        const oldSavedCocktails: Array<SavedCocktail> = props.savedCocktails; 
         let newSavedCocktails;
+        const savedIds: Array<number> = getSavedCocktailIds(oldSavedCocktails);
         const intId = parseInt(cocktailId)
-        if (oldSavedCocktails.includes(intId)){
+        if (savedIds.includes(intId)){
             // DELETE request
             const formData = new FormData()
-            formData.append('cocktail', cocktailId);
-            formData.append('username', props.username);
+            formData.append('cocktail_pk', cocktailId);
+            formData.append('cocktail_name', details.name)
+            formData.append('user', props.username);
 
             fetch(`${process.env.REACT_APP_API}cocktails/remove-cocktail`, {
                 method: 'DELETE',
@@ -39,15 +41,16 @@ export function CocktailDetail(props: any){
             })
             .then(response => {
                 if (response.status === 200){
-                    newSavedCocktails = oldSavedCocktails.filter(id => id !== intId);
+                    newSavedCocktails = oldSavedCocktails.filter(object => object.cocktail_pk !== intId);
                     props.setSavedCocktails(newSavedCocktails);
                 }
             })
         } else {
             // POST request
             const formData = new FormData()
-            formData.append('cocktail', cocktailId);
-            formData.append('username', props.username);
+            formData.append('cocktail_pk', cocktailId);
+            formData.append('cocktail_name', details.name)
+            formData.append('user', props.username);
 
             fetch(`${process.env.REACT_APP_API}cocktails/save-cocktail`, {
                 method: 'POST',
@@ -101,15 +104,27 @@ export function CocktailDetail(props: any){
         const btnColor: string = getSaveBtnColor();
 
         if (loggedIn)
-            return <button onClick={() => toggleSavedCocktail(cocktailId)} className={`${btnColor} inline-block ml-12 px-2 py-1 hover:bg-darkcadetblue rounded`}>Save</button>
+            return <button onClick={() => toggleSavedCocktail(cocktailId, details.name)} className={`${btnColor} inline-block ml-12 px-2 py-1 hover:bg-darkcadetblue rounded`}>Save</button>
         else
             return <div className="inline-block ml-24 px-1 py-1"></div>
     }
 
+    function getSavedCocktailIds(cocktails: Array<SavedCocktail>): Array<number>{
+        const savedCocktails: Array<SavedCocktail> = props.savedCocktails;
+        let idArray: Array<number> = [];
+        savedCocktails.map(object => {
+            Object.keys(object).forEach(key => {
+                if (key === 'cocktail_pk')
+                    idArray.push(object[key]);
+            })
+        });
+        return idArray;
+    }   
+
     function getSaveBtnColor(): string {
         const intId = parseInt(cocktailId);
-        const saved = props.savedCocktails.includes(intId);
-        const color = saved ? "bg-darkcadetblue" : "bg-cadetblue";
+        const savedIds: Array<number> = getSavedCocktailIds(props.savedCocktails);
+        const color = (savedIds.includes(intId)) ? "bg-darkcadetblue" : "bg-cadetblue";
         return color;
     }
 

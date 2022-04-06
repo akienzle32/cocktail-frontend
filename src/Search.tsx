@@ -19,11 +19,13 @@ export function Search(props: any){
             })
             .then(request => request.json())
             .then(data => {
-                let cocktailIdArray: Array<number> = [];
+                /*
+                let cocktailArray: Array<SavedCocktail> = [];
                 data.forEach((object: SavedCocktail) => {
-                    cocktailIdArray.push(object.cocktail);
+                    cocktailArray.push(object);
                 })
-                props.setSavedCocktails(cocktailIdArray);
+                */
+                props.setSavedCocktails(data);
             })
         }
     }, [])
