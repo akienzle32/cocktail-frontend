@@ -13,6 +13,9 @@ export function Profile(props: any){
     }
 
     function logout(){
+        props.setUsername('');
+        props.setToken('');
+        props.setLoggedIn(false);
     }
 
     const cocktailLinks = createCocktailLinks();
