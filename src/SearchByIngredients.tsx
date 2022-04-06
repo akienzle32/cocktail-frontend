@@ -3,7 +3,7 @@ import { Cocktail, Category, Ingredient, SavedIngredient } from './interfaces';
 
 export function SearchByIngredients(props: any){
     const [ categories, setCategories ] = useState<Array<string>>([]);
-    const [ spirits, setSpirits ] = useState<Array<string>>([]);
+    //const [ spirits, setSpirits ] = useState<Array<string>>([]);
     const [ leftButtonText, setLeftButtonText ] = useState<Array<string>>([]);
 
     // Fetch for initial ingredient categories
@@ -47,15 +47,13 @@ export function SearchByIngredients(props: any){
         .then((data: Array<Ingredient>) => {
             const ingredients: Array<string> = data.map(ingredient => ingredient.name);
             setLeftButtonText(ingredients);
-            if (category === 'Spirits')
-                setSpirits(ingredients);
         })
     }
 
     function createQueryString(){
         const currentBar: Array<string> = props.myBar;
         const queryString = currentBar.map(ingredient => {
-            if (spirits.includes(ingredient))
+            if (props.spirits.includes(ingredient))
                 return encodeURIComponent('spirit') + '=' + encodeURIComponent(ingredient);
             else
                 return encodeURIComponent('ingredient') + '=' + encodeURIComponent(ingredient);
