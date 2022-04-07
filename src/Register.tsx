@@ -1,4 +1,17 @@
+import { useState, ReactElement } from "react";
+
 export function Register(){
+    const [ registerSuccess, setRegisterSuccess ] = useState<boolean>(false);
+
+    function createSuccessDiv(): ReactElement {
+        if (registerSuccess)
+            return <div>Success!</div>
+        else
+            return <div></div>
+    }
+
+    const successDiv = createSuccessDiv();
+
     return (
         <div className="w-1/3 flex flex-col items-center justify-center">
             <div className="text-2xl text-darkcadetblue font-extrabold mt-4">Create a new account</div>
@@ -17,7 +30,7 @@ export function Register(){
                     </form>
                 </div>
             </div>
-            <div>Success!</div>
+            {successDiv}
         </div>
     );
 }
