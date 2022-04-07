@@ -1,8 +1,34 @@
-import { useState, ReactElement } from "react";
+import { useState, ReactElement, ChangeEvent } from "react";
 import { Link } from "react-router-dom";
 
 export function Register(){
     const [ registerSuccess, setRegisterSuccess ] = useState<boolean>(false);
+    const [ username, setUsername ] = useState<string>();
+    const [ email, setEmail ] = useState<string>();
+    const [ password1, setPassword1 ] = useState<string>();
+    const [ password2, setPassword2 ] = useState<string>();
+
+    function handleChange(e: ChangeEvent, field: string){
+        const element = e.currentTarget as HTMLInputElement;
+        const value = element.value;
+        
+        switch(field){
+            case 'username':
+                setUsername(value);
+                break;
+            case 'email':
+                setEmail(value);
+                break;
+            case 'password1':
+                setPassword1(value);
+                break;
+            case 'password2':
+                setPassword2(value);
+                break;
+            default:
+                break;
+        }
+    }
 
     function createSuccessDiv(): ReactElement {
         if (registerSuccess)
@@ -39,13 +65,13 @@ export function Register(){
                         <div className="mt-6 mb-6 text-center">
                             <form className="flex flex-col items-start justify-center text-lg mt-3 text-black">
                                 <label className="text-white" htmlFor="username">Enter a username:</label>
-                                <input className="m-2 w-60 pl-1 rounded outline-cadetblue font-bold" name="username" type="text"></input>
+                                <input onChange={(e) => handleChange(e, 'username')} className="m-2 w-60 pl-1 rounded outline-cadetblue font-bold" name="username" type="text"></input>
                                 <label className="text-white" htmlFor="email">Enter an email:</label>
-                                <input className="m-2 w-60 pl-1 rounded outline-cadetblue font-bold" name="email" type="text"></input> 
+                                <input onChange={(e) => handleChange(e, 'email')}className="m-2 w-60 pl-1 rounded outline-cadetblue font-bold" name="email" type="text"></input> 
                                 <label className="text-white"htmlFor="password1">Create a password:</label>
-                                <input className="m-2 w-60 pl-1 text-black rounded outline-cadetblue" name="password1" type="password"></input>
+                                <input onChange={(e) => handleChange(e, 'password1')}className="m-2 w-60 pl-1 text-black rounded outline-cadetblue" name="password1" type="password"></input>
                                 <label className="text-white"htmlFor="password2">Re-enter password:</label>
-                                <input className="m-2 w-60 pl-1 text-black rounded outline-cadetblue" name="password2" type="password"></input>
+                                <input onChange={(e) => handleChange(e, 'password2')}className="m-2 w-60 pl-1 text-black rounded outline-cadetblue" name="password2" type="password"></input>
                                 <button type="submit" className="w-32 text-lg text-white bg-cadetblue ml-16 mt-6 pl-4 pr-4 pt-1 pb-1.5 rounded-md hover:bg-lightcadetblue">Register</button>
                             </form>
                         </div>
