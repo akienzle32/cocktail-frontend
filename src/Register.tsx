@@ -2,16 +2,21 @@ import { useState, ReactElement } from "react";
 import { Link } from "react-router-dom";
 
 export function Register(){
-    const [ registerSuccess, setRegisterSuccess ] = useState<boolean>(true);
+    const [ registerSuccess, setRegisterSuccess ] = useState<boolean>(false);
 
     function createSuccessDiv(): ReactElement {
         if (registerSuccess)
             return <div className="h-full w-full z-10 fixed bg-lightcadetblue bg-opacity-75">
                     <div className="h-1/5 flex flex-col items-center justify-center mt-16">
-                    <div className="h-3/4 w-2/5 mt-2 pt-2 pb-2.5 flex flex-col items-center justify-center bg-darkred text-white text-xl rounded">
-                        <div>Registration successful!</div>
-                        <div>Go to <Link className="font-extrabold underline hover:bg-lightred hover:no-underline rounded px-0.5" to="/login">Log In</Link> to sign in with your new credentials.</div>
-                    </div>
+                        <div className="h-3/4 w-2/5 pt-1 bg-darkred text-white text-xl rounded">
+                            <div className="pr-2">
+                                <button onClick={closeModal} className="float-right bg-lightcadetblue hover:bg-darkcadetblue border border-solid rounded-full h-6 w-6 text-base">&#10005;</button>
+                                <div className="flex flex-col items-center justify-center pt-5 ml-8">
+                                    <div>Registration successful!</div>
+                                    <div>Go to <Link className="font-extrabold underline hover:bg-lightcadetblue hover:no-underline rounded px-0.5" to="/login">Log In</Link> to sign in with your new credentials.</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
         else
