@@ -1,4 +1,5 @@
 import { FormEvent, useRef } from "react";
+import { Link } from "react-router-dom";
 
 export function Login(props: any){
 
@@ -24,19 +25,22 @@ export function Login(props: any){
     }
 
     return (
-        <div className="flex flex-col items-center justify-center bg-darkred mt-8 w-1/3 pb-10 rounded">
-            <div className="mt-6 mb-6 text-center">
-                <form ref={formRef} onSubmit={onSubmit} className="flex flex-col items-start justify-center text-lg mt-4 text-black">
-                    <label className="text-white" htmlFor="username">Username:</label>
-                    <input className="m-2 w-60 pl-1 rounded outline-cadetblue" name="username" type="text" id="username"></input>
-                    <label className="text-white"htmlFor="password">Password:</label>
-                    <input className="m-2 w-60 pl-1 text-black rounded outline-cadetblue" name="password" type="password"></input>
-                    <button type="submit" className="w-32 text-lg text-white bg-cadetblue ml-16 mt-4 pl-4 pr-4 pt-1 pb-1.5 rounded-md hover:bg-lightcadetblue">Login</button>
-                </form>
+        <div className="w-1/3 flex flex-col items-center justify-center">
+            <div className="text-2xl mt-4 text-darkcadetblue font-extrabold">Log into your account</div>
+            <div className="w-full flex flex-col items-center justify-center bg-darkred mt-4 w-1/3 pb-10 rounded">
+                <div className="mt-6 mb-6 text-center">
+                    <form ref={formRef} onSubmit={onSubmit} className="flex flex-col items-start justify-center text-lg mt-4 text-black">
+                        <label className="text-white" htmlFor="username">Username:</label>
+                        <input className="m-2 w-60 pl-1 rounded outline-cadetblue" name="username" type="text" id="username"></input>
+                        <label className="text-white"htmlFor="password">Password:</label>
+                        <input className="m-2 w-60 pl-1 text-black rounded outline-cadetblue" name="password" type="password"></input>
+                        <button type="submit" className="w-32 text-lg text-white bg-cadetblue ml-16 mt-4 pl-4 pr-4 pt-1 pb-1.5 rounded-md hover:bg-lightcadetblue">Log in</button>
+                    </form>
+                </div>
+                <br></br>
+                <div className="text-lg font-bold text-white">Or if you don't have an account yet,</div>
+                <Link to="/register" className="w-32 mt-4 pl-4 pr-4 pt-1 pb-1.5 text-lg text-center font-bold rounded-md bg-cadetblue text-white hover:bg-lightcadetblue">Sign up</Link>
             </div>
-            <br></br>
-            <div className="text-lg font-bold text-white">Or if you don't have an account yet,</div>
-            <button className="w-32 mt-4 pl-4 pr-4 pt-1 pb-1.5 text-lg font-bold rounded-md bg-cadetblue text-white hover:bg-lightcadetblue">Sign up</button>
         </div>
     );
 }
