@@ -37,11 +37,11 @@ export function Register(){
                     <div className="text-2xl text-darkcadetblue font-extrabold mt-4">Create a new account</div>
                     <div className="w-full flex flex-col items-center justify-center bg-darkred mt-4 w-1/3 pb-6 rounded">
                         <div className="mt-6 mb-6 text-center">
-                            <form className="flex flex-col items-start justify-center text-lg mt-4 text-black">
+                            <form className="flex flex-col items-start justify-center text-lg mt-3 text-black">
                                 <label className="text-white" htmlFor="username">Enter a username:</label>
-                                <input className="m-2 w-60 pl-1 rounded outline-cadetblue" name="username" type="text"></input>
+                                <input className="m-2 w-60 pl-1 rounded outline-cadetblue font-bold" name="username" type="text"></input>
                                 <label className="text-white" htmlFor="email">Enter an email:</label>
-                                <input className="m-2 w-60 pl-1 rounded outline-cadetblue" name="email" type="text"></input> 
+                                <input className="m-2 w-60 pl-1 rounded outline-cadetblue font-bold" name="email" type="text"></input> 
                                 <label className="text-white"htmlFor="password1">Create a password:</label>
                                 <input className="m-2 w-60 pl-1 text-black rounded outline-cadetblue" name="password1" type="password"></input>
                                 <label className="text-white"htmlFor="password2">Re-enter password:</label>
