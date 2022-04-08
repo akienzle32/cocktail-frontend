@@ -1,5 +1,9 @@
 import { type } from "os";
 
+interface Token {
+    [key: string]: string;
+}
+
 interface Cocktail {
     [key: string]: string;
 }
@@ -26,6 +30,7 @@ interface SavedIngredient {
 }
 
 export type {
+    Token,
     Cocktail,
     Category,
     Ingredient,
