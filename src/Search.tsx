@@ -7,6 +7,7 @@ import { Ingredient, Cocktail, SavedCocktail } from "./interfaces";
 export function Search(props: any){
     const [ cocktailSearch, setCocktailSearch ] = useState('');
     const [ searchResults, setSearchResults ] = useState<Array<Cocktail>>([]);
+    const [ noResults, setNoResults ] = useState<boolean>(false);
     const [ spirits, setSpirits ] = useState<Array<string>>([]);
 
     useEffect(() => {
@@ -46,6 +47,8 @@ export function Search(props: any){
         .then(data => {
             console.log(data);
             setSearchResults(data);
+            if (!data.length)
+                setNoResults(true);
         })
     }
 
@@ -114,25 +117,29 @@ export function Search(props: any){
 
     function switchToSearchByIngredients(){
         props.setSearchByName(false);
+        setNoResults(false);
         setCocktailSearch('');
         setSearchResults([]);
     }
 
     function switchToSearchByName(){
         props.setSearchByName(true);
+        setNoResults(false);
         setSearchResults([]);
     }
 
     function displaySearchComponent(){
         if (props.searchByName)
-            return <SearchByName cocktailSearch={cocktailSearch} setCocktailSearch={setCocktailSearch} fetchCocktail={fetchCocktail} />
+            return <SearchByName cocktailSearch={cocktailSearch} setCocktailSearch={setCocktailSearch} fetchCocktail={fetchCocktail} noResults={noResults} setNoResults={setNoResults} />
         else 
-            return <SearchByIngredients loggedIn={props.loggedIn} token={props.token} myBar={props.myBar} setMyBar={props.setMyBar} addToMyBar={addToMyBar} removeFromMyBar={removeFromMyBar} searchResults={searchResults} setSearchResults={setSearchResults} spirits={spirits} />
+            return <SearchByIngredients loggedIn={props.loggedIn} token={props.token} myBar={props.myBar} setMyBar={props.setMyBar} addToMyBar={addToMyBar} removeFromMyBar={removeFromMyBar} searchResults={searchResults} setSearchResults={setSearchResults} spirits={spirits} noResults={noResults} setNoResults={setNoResults} />
     }
 
     function displaySearchResults(): ReactElement {
         if (searchResults.length)
             return <SearchResults searchResults={searchResults} />
+        else if (noResults)
+            return <div className="mt-6 text-xl font-extrabold text-darkcadetblue">No results.</div>
         else
             return <div></div>
     }

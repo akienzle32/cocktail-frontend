@@ -3,7 +3,6 @@ import { Cocktail, Category, Ingredient, SavedIngredient } from './interfaces';
 
 export function SearchByIngredients(props: any){
     const [ categories, setCategories ] = useState<Array<string>>([]);
-    //const [ spirits, setSpirits ] = useState<Array<string>>([]);
     const [ leftButtonText, setLeftButtonText ] = useState<Array<string>>([]);
 
     // Fetch for initial ingredient categories
@@ -74,6 +73,9 @@ export function SearchByIngredients(props: any){
         .then(data => {
             console.log(data);
             props.setSearchResults(data);
+            if (!data.length){
+                props.setNoResults(true);
+            }
         })
     }
 
@@ -109,6 +111,7 @@ export function SearchByIngredients(props: any){
     const leftButtons = displayLeftButtons();
     const rightButtons = displayRightButtons();
     const backButton = displayGoBack();
+
     return (
         <div className="flex items-center justify-center text-white">
             <div className="mr-4">
