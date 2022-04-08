@@ -1,12 +1,40 @@
-import { useState, ReactElement, ChangeEvent } from "react";
+import { useState, ReactElement, ChangeEvent, FormEvent, useRef } from "react";
 import { Link } from "react-router-dom";
 
 export function Register(){
+    const registerFormRef = useRef<HTMLFormElement>(null);
+
     const [ registerSuccess, setRegisterSuccess ] = useState<boolean>(false);
+    const [ registerFailure, setRegisterFailure ] = useState<boolean>(false);
     const [ username, setUsername ] = useState<string>();
     const [ email, setEmail ] = useState<string>();
     const [ password1, setPassword1 ] = useState<string>();
     const [ password2, setPassword2 ] = useState<string>();
+
+    function onSubmit(e: FormEvent){
+        e.preventDefault()
+        const form = e.target as HTMLFormElement;
+        const formData = new FormData(form);
+
+        fetch(`${process.env.REACT_APP_API}cocktails/register`, {
+            method: 'POST',
+            mode: 'cors',
+            body: formData,
+        })
+        .then(response => {
+            if (response.status === 201){
+                setRegisterSuccess(true);
+                registerFormRef.current?.reset();
+                return response.json();
+            } else {
+                setRegisterFailure(true);
+                return response.text();
+            }
+        })
+        .then((data: JSON | string) => {
+            console.log(data);
+        })
+    }
 
     function handleChange(e: ChangeEvent, field: string){
         const element = e.currentTarget as HTMLInputElement;
@@ -30,7 +58,7 @@ export function Register(){
         }
     }
 
-    function createSuccessDiv(): ReactElement {
+    function createRegisterSuccessModal(): ReactElement {
         if (registerSuccess)
             return <div className="h-full w-full z-10 fixed bg-lightcadetblue bg-opacity-75">
                     <div className="h-1/5 flex flex-col items-center justify-center mt-16">
@@ -38,7 +66,7 @@ export function Register(){
                             <div className="pr-2">
                                 <button onClick={closeModal} className="float-right bg-lightcadetblue hover:bg-darkcadetblue border border-solid rounded-full h-6 w-6 text-base">&#10005;</button>
                                 <div className="flex flex-col items-center justify-center pt-5 ml-8">
-                                    <div>Registration successful!</div>
+                                    <div>Registration success!</div>
                                     <div>Go to <Link className="font-extrabold underline hover:bg-lightcadetblue hover:no-underline rounded px-0.5" to="/login">Log In</Link> to sign in with your new credentials.</div>
                                 </div>
                             </div>
@@ -47,6 +75,23 @@ export function Register(){
                 </div>
         else
             return <div></div>
+    }
+
+    function createRegisterFailureModal(){
+        if (registerFailure){
+            return <div className="h-full w-full z-10 fixed bg-lightcadetblue bg-opacity-75">
+            <div className="h-1/5 flex flex-col items-center justify-center mt-16">
+                <div className="h-3/4 w-2/5 pt-1 bg-darkred text-white text-xl rounded">
+                    <div className="pr-2">
+                        <button onClick={closeModal} className="float-right bg-lightcadetblue hover:bg-darkcadetblue border border-solid rounded-full h-6 w-6 text-base">&#10005;</button>
+                        <div className="flex flex-col items-center justify-center pt-5 ml-8">
+                            <div>Registration failed. That username is already taken.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        }
     }
 
     function activateRegisterBtn(): boolean {
@@ -64,22 +109,27 @@ export function Register(){
     }
 
     function closeModal(){
-        setRegisterSuccess(false);
+        if (registerSuccess)
+            setRegisterSuccess(false);
+        else if (registerFailure)
+            setRegisterFailure(false);
     }
 
     const disabledFlag: boolean = activateRegisterBtn();
-    const successDiv = createSuccessDiv();
+    const registerSuccessModal = createRegisterSuccessModal()
+    const registerFailureModal = createRegisterFailureModal();
     const passwordAlert = passwordsDoNotMatchAlert();
 
     return (
         <div className="h-full w-full">
-            {successDiv}
+            {registerSuccessModal}
+            {registerFailureModal}
             <div className="w-full flex flex-col items-center justify-center">
                 <div className="w-1/3 flex flex-col items-center justify-center">
                     <div className="text-2xl text-darkcadetblue font-extrabold mt-4">Create a new account</div>
                     <div className="w-full flex flex-col items-center justify-center bg-darkred mt-4 w-1/3 pb-6 rounded">
                         <div className="mt-6 mb-6 text-center">
-                            <form className="flex flex-col items-start justify-center text-lg mt-3 text-black">
+                            <form ref={registerFormRef} onSubmit={onSubmit} className="flex flex-col items-start justify-center text-lg mt-3 text-black">
                                 <label className="text-white" htmlFor="username">Enter a username:</label>
                                 <input onChange={(e) => handleChange(e, 'username')} className="m-2 w-60 pl-1 rounded outline-cadetblue font-bold" name="username" type="text"></input>
                                 <label className="text-white" htmlFor="email">Enter an email:</label>
