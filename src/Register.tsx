@@ -49,11 +49,27 @@ export function Register(){
             return <div></div>
     }
 
+    function activateRegisterBtn(): boolean {
+        if (!username || !email || !password1 || !password2 || password1 !== password2)
+            return true
+        else
+            return false;
+    }
+
+    function passwordsDoNotMatchAlert(): ReactElement {
+        if (password1 && password2 && password1 !== password2)
+            return <div className="text-white text-base">Passwords do not match.</div>
+        else
+            return <div className="text-darkred text-base">Filler</div>
+    }
+
     function closeModal(){
         setRegisterSuccess(false);
     }
 
+    const disabledFlag: boolean = activateRegisterBtn();
     const successDiv = createSuccessDiv();
+    const passwordAlert = passwordsDoNotMatchAlert();
 
     return (
         <div className="h-full w-full">
@@ -72,7 +88,10 @@ export function Register(){
                                 <input onChange={(e) => handleChange(e, 'password1')}className="m-2 w-60 pl-1 text-black rounded outline-cadetblue" name="password1" type="password"></input>
                                 <label className="text-white"htmlFor="password2">Re-enter password:</label>
                                 <input onChange={(e) => handleChange(e, 'password2')}className="m-2 w-60 pl-1 text-black rounded outline-cadetblue" name="password2" type="password"></input>
-                                <button type="submit" className="w-32 text-lg text-white bg-cadetblue ml-16 mt-6 pl-4 pr-4 pt-1 pb-1.5 rounded-md hover:bg-lightcadetblue">Register</button>
+                                <div className="flex flex-col items-center justify-center">
+                                    {passwordAlert}
+                                    <button disabled={disabledFlag} type="submit" className="w-32 text-lg text-white bg-cadetblue ml-16 mt-2 pl-4 pr-4 pt-1 pb-1.5 rounded-md hover:bg-lightcadetblue disabled:bg-grey">Register</button>
+                                </div>
                             </form>
                         </div>
                     </div>
