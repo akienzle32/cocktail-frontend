@@ -4,11 +4,11 @@ import { Home } from './Home';
 import './App.css';
 
 function App() {
-  const [ loggedIn, setLoggedIn ] = useState(false);
+  const [ loggedIn, setLoggedIn ] = useState<boolean>(false);
 
   function displayLink(){
     if (!loggedIn)
-      return <Link to="/login" className="px-3 pb-1 mr-10 rounded hover:bg-darkred">Login</Link>
+      return <Link to="/login" className="px-3 pb-1 mr-10 rounded hover:bg-darkred">Log In</Link>
     else
       return <Link to="/profile" className="px-3 pt-0.5 pb-1 mr-10 rounded hover:bg-darkred">My profile</Link>
   }

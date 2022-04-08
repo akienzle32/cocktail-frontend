@@ -6,7 +6,7 @@ export function Profile(props: any){
     function createCocktailLinks(){
         const savedCocktails: Array<SavedCocktail> = props.savedCocktails;
         const cocktailLinks = savedCocktails.map(cocktail => {
-            return <li className="my-3 ml-4"><Link className="bg-lightred hover:bg-darkred border border-solid border-white pl-1 pr-1 pb-0.5 rounded" to={`/${cocktail.cocktail_pk}`}>{cocktail.cocktail_name}</Link></li>
+            return <li key={cocktail.id} className="my-3 ml-4"><Link className="bg-lightred hover:bg-darkred border border-solid border-white pl-1 pr-1 pb-0.5 rounded" to={`/${cocktail.cocktail_pk}`}>{cocktail.cocktail_name}</Link></li>
         })
         return cocktailLinks;
     }
