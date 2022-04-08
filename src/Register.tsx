@@ -4,8 +4,9 @@ import { Link } from "react-router-dom";
 export function Register(){
     const registerFormRef = useRef<HTMLFormElement>(null);
 
+    const [ postRegisterModal, setPostRegisterModal ] = useState<boolean>(false);
     const [ registerSuccess, setRegisterSuccess ] = useState<boolean>(false);
-    const [ registerFailure, setRegisterFailure ] = useState<boolean>(false);
+    const [ postRegisterMessage, setPostRegisterMessage ] = useState<string>('Registration successful!');
     const [ username, setUsername ] = useState<string>();
     const [ email, setEmail ] = useState<string>();
     const [ password1, setPassword1 ] = useState<string>();
@@ -24,15 +25,20 @@ export function Register(){
         .then(response => {
             if (response.status === 201){
                 setRegisterSuccess(true);
+                setPostRegisterModal(true);
                 registerFormRef.current?.reset();
                 return response.json();
             } else {
-                setRegisterFailure(true);
+                setPostRegisterModal(true);
                 return response.text();
             }
         })
         .then((data: JSON | string) => {
-            console.log(data);
+            if (typeof data === 'object'){
+                setPostRegisterMessage('Registration success!');
+            } else if (typeof data === 'string'){
+                setPostRegisterMessage(data);
+            }
         })
     }
 
@@ -58,40 +64,21 @@ export function Register(){
         }
     }
 
-    function createRegisterSuccessModal(): ReactElement {
-        if (registerSuccess)
+    function createPostRegisterModal(): ReactElement {
+        const centerDiv = !registerSuccess ? <div className="flex flex-col items-center justify-center pt-9 ml-8"><div>{postRegisterMessage}</div></div> : <div className="flex flex-col items-center justify-center pt-5 ml-8"><div>{postRegisterMessage}</div><div>Please <Link className="inline-block font-extrabold underline hover:bg-lightcadetblue hover:no-underline rounded px-0.5" to="/login">Log In</Link> with your new credentials.</div></div>
+        if (postRegisterModal)
             return <div className="h-full w-full z-10 fixed bg-lightcadetblue bg-opacity-75">
                     <div className="h-1/5 flex flex-col items-center justify-center mt-16">
                         <div className="h-3/4 w-2/5 pt-1 bg-darkred text-white text-xl rounded">
                             <div className="pr-2">
                                 <button onClick={closeModal} className="float-right bg-lightcadetblue hover:bg-darkcadetblue border border-solid rounded-full h-6 w-6 text-base">&#10005;</button>
-                                <div className="flex flex-col items-center justify-center pt-5 ml-8">
-                                    <div>Registration success!</div>
-                                    <div>Go to <Link className="font-extrabold underline hover:bg-lightcadetblue hover:no-underline rounded px-0.5" to="/login">Log In</Link> to sign in with your new credentials.</div>
-                                </div>
+                                    {centerDiv}
                             </div>
                         </div>
                     </div>
                 </div>
         else
             return <div></div>
-    }
-
-    function createRegisterFailureModal(){
-        if (registerFailure){
-            return <div className="h-full w-full z-10 fixed bg-lightcadetblue bg-opacity-75">
-            <div className="h-1/5 flex flex-col items-center justify-center mt-16">
-                <div className="h-3/4 w-2/5 pt-1 bg-darkred text-white text-xl rounded">
-                    <div className="pr-2">
-                        <button onClick={closeModal} className="float-right bg-lightcadetblue hover:bg-darkcadetblue border border-solid rounded-full h-6 w-6 text-base">&#10005;</button>
-                        <div className="flex flex-col items-center justify-center pt-5 ml-8">
-                            <div>Registration failed. That username is already taken.</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        }
     }
 
     function activateRegisterBtn(): boolean {
@@ -109,21 +96,16 @@ export function Register(){
     }
 
     function closeModal(){
-        if (registerSuccess)
-            setRegisterSuccess(false);
-        else if (registerFailure)
-            setRegisterFailure(false);
+        setPostRegisterModal(false);
     }
 
     const disabledFlag: boolean = activateRegisterBtn();
-    const registerSuccessModal = createRegisterSuccessModal()
-    const registerFailureModal = createRegisterFailureModal();
+    const modalBox = createPostRegisterModal();
     const passwordAlert = passwordsDoNotMatchAlert();
 
     return (
         <div className="h-full w-full">
-            {registerSuccessModal}
-            {registerFailureModal}
+            {modalBox}
             <div className="w-full flex flex-col items-center justify-center">
                 <div className="w-1/3 flex flex-col items-center justify-center">
                     <div className="text-2xl text-darkcadetblue font-extrabold mt-4">Create a new account</div>
