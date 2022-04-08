@@ -1,5 +1,6 @@
 import { FormEvent, useRef } from "react";
 import { Link } from "react-router-dom";
+import { Token } from './interfaces';
 
 export function Login(props: any){
 
@@ -15,13 +16,23 @@ export function Login(props: any){
             mode: 'cors',
             body: formData,
         })
-        .then(response => response.json())
-        .then(data => {
-            props.setToken(data.token);
-            props.setLoggedIn(true);
-            props.setUsername(username);
-            formRef.current?.reset();
+        .then(response => {
+            if (response.ok)
+                return response.json();
+            else
+                return response.statusText;
         })
+        .then((data: Token | string) => {
+            if (typeof data === 'object') {
+                props.setToken(data.token);
+                props.setLoggedIn(true);
+                props.setUsername(username);
+                formRef.current?.reset();
+            }
+            else
+                return console.log(data);
+        })
+        .catch(error => console.log(error))
     }
 
     return (
