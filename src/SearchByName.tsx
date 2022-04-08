@@ -9,6 +9,7 @@ export function SearchByName(props: any){
     }
 
     function handleChange(e: ChangeEvent): void {
+        props.setNoResults(false)
         const element = e.currentTarget as HTMLInputElement;
         const value = element.value;
         props.setCocktailSearch(value);
