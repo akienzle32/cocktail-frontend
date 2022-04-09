@@ -3,55 +3,19 @@ import { fireEvent, getByRole } from '@testing-library/dom';
 import App from './App';
 import { MemoryRouter } from 'react-router';
 import { Home } from './Home';
-import { rest } from 'msw';
-import { setupServer } from 'msw/node';
 
-export const handlers = [
-    rest.get(`${process.env.REACT_APP_API}cocktails/ingredients/categories`, (req, res, ctx) => {
-        return res(
-            ctx.status(200),
-            ctx.json([
-              {"category": "Spirits"}, 
-              {"category": "Fortified wines"}, 
-              {"category": "Bitters"},
-               {"category": "Garnishes"}, 
-               {"category": "Fruit juices"}, 
-               {"category": "Sweeteners"}, 
-               {"category": "Liqueurs"}
-            ])
-        )
-    }),
-    rest.get(`${process.env.REACT_APP_API}cocktails/ingredients/spirits`, (req, res, ctx) => {
-      return res(
-        ctx.status(200),
-        ctx.json([
-          {"id": 1, "name": "Gin", "category": "Spirits"}, 
-          {"id": 8, "name": "Rye whiskey", "category": "Spirits"}, 
-          {"id": 13, "name": "Tequila", "category": "Spirits"}, 
-          {"id": 16, "name": "White rum", "category": "Spirits"}
-        ])
-      )
-    })
-]
-
-const server = setupServer(...handlers);
-
-beforeAll(() => server.listen())
-afterEach(() => server.resetHandlers())
-afterAll(() => server.close())
-
-test('SearchByIngredients renders with button press', () => {
+test('SearchByIngredients renders with button press', async () => {
   render(<MemoryRouter><Home /></MemoryRouter>);
 
   const searchByIngredientsBtn = screen.getByRole('button', {name: /search by ingredients/i});
   fireEvent.click(searchByIngredientsBtn);
 
-  const spiritsBtn = screen.findByRole('button', {name: /spirits/i});
+  const spiritsBtn = await screen.findByRole('button', {name: /spirits/i});
   waitFor(() => expect(spiritsBtn).toBeInTheDocument());
 })
 
-test('Back button does not render initially with SearchByIngredients', () => {
-  render(<MemoryRouter><App /></MemoryRouter>);
+test('Back button does not render initially with SearchByIngredients', async () => {
+  render(<MemoryRouter><Home /></MemoryRouter>);
 
   const searchByIngredientsBtn = screen.getByRole('button', {name: /search by ingredients/i});
   fireEvent.click(searchByIngredientsBtn);
@@ -61,7 +25,7 @@ test('Back button does not render initially with SearchByIngredients', () => {
 })
 
 test('Back button renders after click of category', async () => {
-  render(<MemoryRouter><App /></MemoryRouter>);
+  render(<MemoryRouter><Home /></MemoryRouter>);
   
   const searchByIngredientsBtn = screen.getByRole('button', {name: /search by ingredients/i});
   fireEvent.click(searchByIngredientsBtn);
@@ -70,11 +34,11 @@ test('Back button renders after click of category', async () => {
   fireEvent.click(spiritsBtn);
 
   const backButton = await screen.findByRole('button', {name: /go back/i});
-  waitFor(() => expect(backButton).toBeInTheDocument());
+  expect(backButton).toBeInTheDocument();
 })
 
 test('Back button functions correctly', async () => {
-  render(<MemoryRouter><App /></MemoryRouter>);
+  render(<MemoryRouter><Home /></MemoryRouter>);
   
   const searchByIngredientsBtn = screen.getByRole('button', {name: /search by ingredients/i});
   fireEvent.click(searchByIngredientsBtn);
@@ -90,7 +54,7 @@ test('Back button functions correctly', async () => {
 })
 
 test('Subcategories render after click of category', async () => {
-  render(<MemoryRouter><App /></MemoryRouter>);
+  render(<MemoryRouter><Home /></MemoryRouter>);
 
   const searchByIngredientsBtn = screen.getByRole('button', {name: /search by ingredients/i});
   fireEvent.click(searchByIngredientsBtn);
@@ -99,7 +63,7 @@ test('Subcategories render after click of category', async () => {
   fireEvent.click(spiritsBtn);
 
   const ginBtn = await screen.findByRole('button', {name: /gin/i});
-  waitFor(() => expect(ginBtn).toBeInTheDocument());
+  expect(ginBtn).toBeInTheDocument();
 })
 
 
@@ -116,7 +80,7 @@ test('The search component to display persists after navigating to Login', async
   fireEvent.click(homeLink);
 
   const spiritsBtn = await screen.findByRole('button', {name: /spirits/i});
-  waitFor(() => expect(spiritsBtn).toBeInTheDocument());
+  expect(spiritsBtn).toBeInTheDocument();
 })
 
 test('MyBar ingredients persist after navigating to Login', async () => {
