@@ -21,7 +21,7 @@ test('Back button does not render initially with SearchByIngredients', async () 
   fireEvent.click(searchByIngredientsBtn);
 
   const backButton = screen.queryByRole('button', {name: /go back/i});
-  expect(backButton).not.toBeInTheDocument();
+  waitFor(() => expect(backButton).not.toBeInTheDocument());
 })
 
 test('Back button renders after click of category', async () => {
@@ -32,7 +32,7 @@ test('Back button renders after click of category', async () => {
 
   waitFor(() => fireEvent.click(screen.getByRole('button', {name: /spirits/i})));
   
-  const backBtn = waitFor(() => screen.findByRole('button', {name: /go back/i}));
+  const backBtn = waitFor(() => screen.getByRole('button', {name: /go back/i}));
   waitFor(() => expect(backBtn).toBeInTheDocument());
 })
 
@@ -46,7 +46,7 @@ test('Back button functions correctly', async () => {
 
   waitFor(() => fireEvent.click(screen.getByRole('button', {name: /go back/i})));
 
-  const spiritsBtn = waitFor(() => screen.findByRole('button', {name: /spirits/i}));
+  const spiritsBtn = waitFor(() => screen.getByRole('button', {name: /spirits/i}));
   waitFor(() => expect(spiritsBtn).toBeInTheDocument());
 })
 
@@ -58,7 +58,7 @@ test('Subcategories render after click of category', async () => {
 
   waitFor(() => fireEvent.click(screen.getByRole('button', {name: /go back/i})));
 
-  const ginBtn = waitFor(() => screen.findByRole('button', {name: /gin/i}));
+  const ginBtn = waitFor(() => screen.getByRole('button', {name: /gin/i}));
   waitFor(() => expect(ginBtn).toBeInTheDocument());
 })
 
@@ -74,7 +74,7 @@ test('The search component to display persists after navigating to Login', async
   const homeLink = screen.getByRole('link', {name: /the cocktail library/i});
   fireEvent.click(homeLink);
 
-  const spiritsBtn = waitFor(() => screen.findByRole('button', {name: /spirits/i}));
+  const spiritsBtn = waitFor(() => screen.getByRole('button', {name: /spirits/i}));
   waitFor(() => expect(spiritsBtn).toBeInTheDocument());
 })
 
