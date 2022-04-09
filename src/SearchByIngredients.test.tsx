@@ -1,5 +1,5 @@
 import { render, screen, waitFor } from '@testing-library/react';
-import { fireEvent, getByRole, queryByRole, waitForElementToBeRemoved } from '@testing-library/dom';
+import { fireEvent } from '@testing-library/dom';
 import App from './App';
 import { MemoryRouter } from 'react-router';
 import { Home } from './Home';
