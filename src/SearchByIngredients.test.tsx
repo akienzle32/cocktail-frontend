@@ -50,18 +50,6 @@ test('SearchByIngredients renders with button press', () => {
   waitFor(() => expect(spiritsBtn).toBeInTheDocument());
 })
 
-/*
-test('Login renders with link click', () => {
-  render(<MemoryRouter><App /></MemoryRouter>);
-
-  const loginLink = screen.getByRole('link', { name: /login/i});
-  fireEvent.click(loginLink);
-
-  const loginComponent = screen.getByRole('button', {name: /login/i});
-  expect(loginComponent).toBeInTheDocument();
-})
-*/
-
 test('Back button does not render initially with SearchByIngredients', () => {
   render(<MemoryRouter><App /></MemoryRouter>);
 
@@ -71,50 +59,51 @@ test('Back button does not render initially with SearchByIngredients', () => {
   const backButton = screen.queryByRole('button', {name: /go back/i});
   expect(backButton).not.toBeInTheDocument();
 })
-/*
-test('Back button renders after click of category', () => {
+
+test('Back button renders after click of category', async () => {
   render(<MemoryRouter><App /></MemoryRouter>);
   
   const searchByIngredientsBtn = screen.getByRole('button', {name: /search by ingredients/i});
   fireEvent.click(searchByIngredientsBtn);
 
-  const spiritsBtn = screen.findByRole('button', {name: /spirits/i});
+  const spiritsBtn = await screen.findByRole('button', {name: /spirits/i});
   fireEvent.click(spiritsBtn);
 
-  const backButton = screen.getByRole('button', {name: /go back/i});
-  expect(backButton).toBeInTheDocument();
+  const backButton = await screen.findByRole('button', {name: /go back/i});
+  waitFor(() => expect(backButton).toBeInTheDocument());
 })
 
-test('Back button functions correctly', () => {
+test('Back button functions correctly', async () => {
   render(<MemoryRouter><App /></MemoryRouter>);
   
   const searchByIngredientsBtn = screen.getByRole('button', {name: /search by ingredients/i});
   fireEvent.click(searchByIngredientsBtn);
 
-  const spiritsBtn = screen.getByRole('button', {name: /spirits/i});
+  const spiritsBtn = await screen.findByRole('button', {name: /spirits/i});
   fireEvent.click(spiritsBtn);
 
-  const backBtn = screen.getByRole('button', {name: /go back/i});
+  const backBtn = await screen.findByRole('button', {name: /go back/i});
   fireEvent.click(backBtn);
 
-  const nextSpiritsBtn = screen.queryByRole('button', {name: /spirits/i});
+  const nextSpiritsBtn = await screen.findByRole('button', {name: /spirits/i});
   expect(nextSpiritsBtn).toBeInTheDocument();
 })
 
-test('Subcategories render after click of category', () => {
+test('Subcategories render after click of category', async () => {
   render(<MemoryRouter><App /></MemoryRouter>);
 
   const searchByIngredientsBtn = screen.getByRole('button', {name: /search by ingredients/i});
   fireEvent.click(searchByIngredientsBtn);
 
-  const spiritsBtn = screen.getByRole('button', {name: /spirits/i});
+  const spiritsBtn = await screen.findByRole('button', {name: /spirits/i});
   fireEvent.click(spiritsBtn);
 
-  const ginBtn = screen.queryByRole('button', {name: /gin/i});
-  expect(ginBtn).toBeInTheDocument();
+  const ginBtn = await screen.findByRole('button', {name: /gin/i});
+  waitFor(() => expect(ginBtn).toBeInTheDocument());
 })
-*/
-test('The search component to display persists after navigating to Login', () => {
+
+
+test('The search component to display persists after navigating to Login', async () => {
   render(<MemoryRouter><App /></MemoryRouter>);
 
   const searchByIngredientsBtn = screen.getByRole('button', {name: /search by ingredients/i});
@@ -126,23 +115,23 @@ test('The search component to display persists after navigating to Login', () =>
   const homeLink = screen.getByRole('link', {name: /the cocktail library/i});
   fireEvent.click(homeLink);
 
-  const spiritsBtn = screen.findByRole('button', {name: /spirits/i});
+  const spiritsBtn = await screen.findByRole('button', {name: /spirits/i});
   waitFor(() => expect(spiritsBtn).toBeInTheDocument());
 })
-/*
-test('MyBar ingredients persist after navigating to Login', () => {
+
+test('MyBar ingredients persist after navigating to Login', async () => {
   render(<MemoryRouter><App /></MemoryRouter>);
 
   const searchByIngredientsBtn = screen.getByRole('button', {name: /search by ingredients/i});
   fireEvent.click(searchByIngredientsBtn);
 
-  const spiritsBtn = screen.getByRole('button', {name: /spirits/i});
+  const spiritsBtn = await screen.findByRole('button', {name: /spirits/i});
   fireEvent.click(spiritsBtn);
 
-  const ginBtn = screen.getByRole('button', {name: /gin/i});
+  const ginBtn = await screen.findByRole('button', {name: /gin/i});
   fireEvent.click(ginBtn);
 
-  const loginLink = screen.getByRole('link', {name: /login/i});
+  const loginLink = screen.getByRole('link', {name: /log in/i});
   fireEvent.click(loginLink);
 
   const homeLink = screen.getByRole('link', {name: /the cocktail library/i});
@@ -151,4 +140,3 @@ test('MyBar ingredients persist after navigating to Login', () => {
   const nextGinBtn = screen.getByRole('button', {name: /gin/i});
   expect(nextGinBtn).toBeInTheDocument();
 })
-*/
