@@ -65,7 +65,7 @@ export function Login(props: any){
         <div className="w-full">
             {modalBox}
             <div className="w-full flex flex-col items-center justify-center">
-                <div className="w-1/3 flex flex-col items-center justify-center">
+                <div className="w-4/5 flex flex-col items-center justify-center">
                     <div className="text-2xl mt-4 text-darkcadetblue font-extrabold">Log into your account</div>
                     <div className="w-full flex flex-col items-center justify-center bg-darkred mt-4 w-1/3 pb-10 rounded">
                         <div className="mt-6 mb-6 text-center">

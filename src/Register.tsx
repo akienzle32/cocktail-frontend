@@ -107,7 +107,7 @@ export function Register(){
         <div className="h-full w-full">
             {modalBox}
             <div className="w-full flex flex-col items-center justify-center">
-                <div className="w-1/3 flex flex-col items-center justify-center">
+                <div className="w-4/5 flex flex-col items-center justify-center">
                     <div className="text-2xl text-darkcadetblue font-extrabold mt-4">Create a new account</div>
                     <div className="w-full flex flex-col items-center justify-center bg-darkred mt-4 w-1/3 pb-6 rounded">
                         <div className="mt-6 mb-6 text-center">
