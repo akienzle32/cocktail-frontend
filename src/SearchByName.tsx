@@ -1,4 +1,4 @@
-import { useState, FormEvent, ChangeEvent } from 'react';
+import { FormEvent, ChangeEvent } from 'react';
 
 export function SearchByName(props: any){
     //const [ cocktailSearch, setCocktailSearch ] = useState('');

@@ -2,13 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import App from './App';
-import { Home } from './Home';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import { SearchByIngredients } from './SearchByIngredients';
-import { SearchByName } from './SearchByName';
-import { Login } from './Login';
-import { Profile } from './Profile';
 
 ReactDOM.render(
   <React.StrictMode>

@@ -1,5 +1,5 @@
 import React, { useState, ReactElement, FormEvent, useEffect } from "react";
-import { Cocktail, Category, Ingredient, SavedIngredient } from './interfaces';
+import { Category, Ingredient, SavedIngredient } from './interfaces';
 
 export function SearchByIngredients(props: any){
     const [ categories, setCategories ] = useState<Array<string>>([]);
@@ -34,7 +34,7 @@ export function SearchByIngredients(props: any){
                 props.setMyBar(bar);
             })
         }
-    }, [])
+    }, [props])
 
     // Fetch for particular ingredients within subcategory
     function fetchIngredients(e: React.MouseEvent, category: string){
