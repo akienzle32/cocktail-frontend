@@ -1,4 +1,4 @@
-import React, { useState, ReactElement } from 'react';
+import { useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import { Home } from './Home';
 import './App.css';

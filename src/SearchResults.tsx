@@ -1,4 +1,4 @@
-import { ReactElement, RefObject, useRef, useEffect } from 'react';
+import { ReactElement, useRef, useEffect } from 'react';
 import { CocktailCard } from './CocktailCard';
 import { Cocktail } from './interfaces';
 

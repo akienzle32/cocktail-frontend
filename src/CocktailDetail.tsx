@@ -17,7 +17,7 @@ export function CocktailDetail(props: any){
         .then(data => {
             setDetails(data);
         })
-    }, [])
+    }, [cocktailId])
 
     function toggleSavedCocktail(cocktailId: string, cocktailName: string){
         const oldSavedCocktails: Array<SavedCocktail> = props.savedCocktails; 

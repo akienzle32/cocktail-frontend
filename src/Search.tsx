@@ -2,7 +2,7 @@ import { useState, useEffect, ReactElement } from "react";
 import { SearchByIngredients } from './SearchByIngredients';
 import { SearchByName } from './SearchByName';
 import { SearchResults } from "./SearchResults";
-import { Ingredient, Cocktail, SavedCocktail } from "./interfaces";
+import { Ingredient, Cocktail } from "./interfaces";
 
 export function Search(props: any){
     const [ cocktailSearch, setCocktailSearch ] = useState('');
