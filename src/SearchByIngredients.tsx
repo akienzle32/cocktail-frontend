@@ -34,7 +34,7 @@ export function SearchByIngredients(props: any){
                 props.setMyBar(bar);
             })
         }
-    }, [props])
+    }, [])
 
     // Fetch for particular ingredients within subcategory
     function fetchIngredients(e: React.MouseEvent, category: string){

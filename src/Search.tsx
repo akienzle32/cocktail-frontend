@@ -36,7 +36,7 @@ export function Search(props: any){
                 props.setSavedCocktails(data);
             })
         }
-    }, [props])
+    }, [])
 
     function fetchCocktail(search: string) {
         fetch(`${process.env.REACT_APP_API}cocktails/${search}`, {
