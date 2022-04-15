@@ -4,6 +4,8 @@ import { SearchByName } from './SearchByName';
 import { SearchResults } from "./SearchResults";
 import { Ingredient, Cocktail } from "./interfaces";
 
+const useMountEffect = (func: any) => useEffect(func, []);
+
 export function Search(props: any){
     const [ cocktailSearch, setCocktailSearch ] = useState('');
     const [ searchResults, setSearchResults ] = useState<Array<Cocktail>>([]);
@@ -22,7 +24,7 @@ export function Search(props: any){
         })
     }, [])
 
-    useEffect(() => {
+    function fetchSavedCocktails(): void {
         if (props.loggedIn){
             fetch(`${process.env.REACT_APP_API}cocktails/profile`, {
                 method: 'GET',
@@ -36,9 +38,11 @@ export function Search(props: any){
                 props.setSavedCocktails(data);
             })
         }
-    }, [])
+    }
 
-    function fetchCocktail(search: string) {
+    useMountEffect(fetchSavedCocktails);
+
+    function fetchCocktail(search: string): void {
         fetch(`${process.env.REACT_APP_API}cocktails/${search}`, {
             method: 'GET',
             mode: 'cors',

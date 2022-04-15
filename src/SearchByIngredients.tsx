@@ -1,6 +1,8 @@
 import React, { useState, ReactElement, FormEvent, useEffect } from "react";
 import { Category, Ingredient, SavedIngredient } from './interfaces';
 
+const useMountEffect = (func: any) => useEffect(func, []);
+
 export function SearchByIngredients(props: any){
     const [ categories, setCategories ] = useState<Array<string>>([]);
     const [ leftButtonText, setLeftButtonText ] = useState<Array<string>>([]);
@@ -19,7 +21,7 @@ export function SearchByIngredients(props: any){
         })
     }, [])
 
-    useEffect(() => {
+    function fetchSavedIngredients(){
         if (props.loggedIn){
             fetch(`${process.env.REACT_APP_API}cocktails/get-ingredients`, {
                 method: 'GET',
@@ -34,10 +36,12 @@ export function SearchByIngredients(props: any){
                 props.setMyBar(bar);
             })
         }
-    }, [])
+    }
+
+    useMountEffect(fetchSavedIngredients);
 
     // Fetch for particular ingredients within subcategory
-    function fetchIngredients(e: React.MouseEvent, category: string){
+    function fetchIngredients(e: React.MouseEvent, category: string): void {
         fetch(`${process.env.REACT_APP_API}cocktails/ingredients/${category}`, {
             method: 'GET',
             mode: 'cors',
@@ -49,7 +53,7 @@ export function SearchByIngredients(props: any){
         })
     }
 
-    function createQueryString(){
+    function createQueryString(): string {
         const currentBar: Array<string> = props.myBar;
         const queryString = currentBar.map(ingredient => {
             if (props.spirits.includes(ingredient))
@@ -61,7 +65,7 @@ export function SearchByIngredients(props: any){
         return queryString;
     }
 
-    function handleSubmit(e: FormEvent){
+    function handleSubmit(e: FormEvent): void {
         e.preventDefault();
         const queryString = createQueryString();
 
@@ -102,7 +106,7 @@ export function SearchByIngredients(props: any){
         setLeftButtonText(categories);
     }
 
-    function displayGoBack() {
+    function displayGoBack(): ReactElement | void {
         const buttons = leftButtonText;
         if (buttons.length && !buttons.includes('Spirits'))
             return <button className="w-20 ml-1.5 pr-1 rounded text-lg bg-darkred hover:bg-red" onClick={goBack}>Go back</button>
