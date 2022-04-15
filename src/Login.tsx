@@ -74,12 +74,18 @@ export function Login(props: any){
                                 <input className="m-2 w-60 pl-1 rounded outline-cadetblue" name="username" type="text" id="username"></input>
                                 <label className="text-white"htmlFor="password">Password:</label>
                                 <input className="m-2 w-60 pl-1 text-black rounded outline-cadetblue" name="password" type="password"></input>
-                                <button type="submit" className="w-32 text-lg text-white bg-cadetblue ml-16 mt-4 pl-4 pr-4 pt-1 pb-1.5 rounded-md hover:bg-lightcadetblue">Log in</button>
+                                <button type="submit" className="w-32 text-lg text-white bg-cadetblue ml-16 mt-4 pl-4 pr-4 pt-1 pb-1.5 rounded-md hover:bg-lightcadetblue transition duration-100"
+                                >
+                                    Log in
+                                </button>
                             </form>
                         </div>
                         <br></br>
                         <div className="text-lg font-bold text-white">Or if you don't have an account yet,</div>
-                        <Link to="/register" className="w-32 mt-4 pl-4 pr-4 pt-1 pb-1.5 text-lg text-center font-bold rounded-md bg-cadetblue text-white hover:bg-lightcadetblue">Sign up</Link>
+                        <Link to="/register" className="w-32 mt-4 pl-4 pr-4 pt-1 pb-1.5 text-lg text-center font-bold rounded-md bg-cadetblue text-white hover:bg-lightcadetblue transition duration-100"
+                        >
+                            Sign up
+                        </Link>
                     </div>
                 </div>
             </div>

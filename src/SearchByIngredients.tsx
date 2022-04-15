@@ -116,7 +116,7 @@ export function SearchByIngredients(props: any){
         <div className="flex items-center justify-center text-white">
             <div className="mr-4">
                 <p className="text-center text-xl text-darkcadetblue font-bold mb-1">Ingredients</p>
-                <div className="flex flex-col items-start justify-start overflow-scroll w-72 h-80 bg-cadetblue border-solid border-2 border-darkcadetblue rounded">
+                <div className="flex flex-col items-start justify-start overflow-scroll w-72 h-80 bg-cadetblue border-solid border-2 border-darkcadetblue rounded shadow-xl">
                     <div className="w-full flex flex-col items-start justify-start">
                         {leftButtons}
                         <br></br>
@@ -130,7 +130,10 @@ export function SearchByIngredients(props: any){
                     <div className="w-full flex flex-col items-start justify-start">
                         {rightButtons}
                     </div>
-                    <button onClick={handleSubmit} className="w-full h-9 text-xl pl-2 border-2 border-solid border-l-transparent border-r-transparent border-b-transparent border-t-darkcadetblue bg-darkred hover:bg-lightred hover:border-t-darkcadetblue">Search for cocktails</button>
+                    <button onClick={handleSubmit} className="w-full h-9 text-xl pl-2 border-2 border-solid border-l-transparent border-r-transparent border-b-transparent border-t-transparent bg-darkred hover:bg-red shadow-xl transition duration-100"
+                    >
+                        Search for cocktails
+                    </button>
                 </div>
             </div>
         </div>

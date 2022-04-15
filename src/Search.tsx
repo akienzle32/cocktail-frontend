@@ -150,8 +150,14 @@ export function Search(props: any){
     return (
         <div className="flex flex-col items-center justify-center">
             <div className="flex items-center justify-center text-white">
-                <button onClick={switchToSearchByName} className="w-40 h-16 m-10 p-4 rounded bg-darkred hover:bg-red text-lg">Search by Name</button>
-                <button name="search-by-ingredients-btn" onClick={switchToSearchByIngredients} className="w-50 h-16 m-10 p-4 rounded bg-darkred hover:bg-red text-lg">Search by Ingredients</button>
+                <button onClick={switchToSearchByName} className="w-40 h-16 m-10 p-4 rounded shadow-xl bg-darkred hover:bg-red text-lg transition duration-200"
+                >
+                    Search by Name
+                </button>
+                <button name="search-by-ingredients-btn" onClick={switchToSearchByIngredients} className="w-50 h-16 m-10 p-4 rounded shadow-xl bg-darkred hover:bg-red text-lg transition duration-200"
+                >
+                    Search by Ingredients
+                </button>
             </div>
             {searchComponent}
             {searchResultsComponent}
