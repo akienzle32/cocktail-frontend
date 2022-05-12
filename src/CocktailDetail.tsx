@@ -7,6 +7,7 @@ export function CocktailDetail(props: any){
     const cocktailId = location.pathname.slice(1);
 
     const [ details, setDetails ] = useState<Cocktail>({});
+    const [ saveBtnText, setSaveBtnText ] = useState<string>();
 
     useEffect(() => {
         fetch(`${process.env.REACT_APP_API}cocktails/${cocktailId}`, {
@@ -19,7 +20,7 @@ export function CocktailDetail(props: any){
         })
     }, [cocktailId])
 
-    function toggleSavedCocktail(cocktailId: string, cocktailName: string){
+    function toggleSavedCocktail(cocktailId: string){
         const oldSavedCocktails: Array<SavedCocktail> = props.savedCocktails; 
         const savedIds: Array<number> = oldSavedCocktails.map(cocktail => cocktail.cocktail_pk);
         const intId = parseInt(cocktailId)
@@ -104,8 +105,15 @@ export function CocktailDetail(props: any){
         const loggedIn: boolean = props.loggedIn;
         const btnColor: string = getSaveBtnColor();
 
+        const intId = parseInt(cocktailId);
+        const savedIds = props.savedCocktails.map((cocktail: SavedCocktail) => cocktail.cocktail_pk);
+        const saved = savedIds.includes(intId);
+
         if (loggedIn)
-            return <button onClick={() => toggleSavedCocktail(cocktailId, details.name)} className={`${btnColor} inline-block ml-12 px-2 py-1 hover:bg-darkcadetblue rounded`}>Save</button>
+            return <button onClick={() => toggleSavedCocktail(cocktailId)} className={`${btnColor} font-sans text-sm absolute top-8 right-8 px-2 py-1 hover:bg-darkcadetblue rounded`}
+            >
+                {saved ? 'Saved' : 'Save'}
+            </button>
         else
             return <div className="inline-block ml-24 px-1 py-1"></div>
     }
@@ -129,11 +137,11 @@ export function CocktailDetail(props: any){
 
     return (
         <div className="overflow-scroll flex flex-col items-center justify-center">
-            <div className="w-1/2 flex flex-col items-center justify-center bg-red pb-16">
+            <div className="w-1/2 flex flex-col items-center justify-center bg-darkred pb-16">
                 <div className="w-2/3 flex flex-col items-center justify-center">
                     <div className="flex flex-col items-center justify-center text-white">
-                        <div>
-                            <div className="text-3xl mt-6 mb-4 ml-32 mr-8 inline-block">{name}</div>
+                        <div className="relative w-full flex items center justify-center">
+                            <div className="text-3xl mt-6 mb-4 inline-block">{name}</div>
                             {saveBtn}
                         </div>
                         <div className="bg-cadetblue p-6 rounded"><img src={image} width="350" height="425" /></div>
