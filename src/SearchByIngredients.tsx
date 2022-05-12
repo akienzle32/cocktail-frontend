@@ -1,10 +1,11 @@
 import React, { useState, ReactElement, FormEvent, useEffect } from "react";
-import { Category, Ingredient, SavedIngredient } from './interfaces';
+import { Cocktail, Category, Ingredient, SavedIngredient } from './interfaces';
 
 const useMountEffect = (func: any) => useEffect(func, []);
 
 export function SearchByIngredients(props: any){
     const [ categories, setCategories ] = useState<Array<string>>([]);
+    const [ garnishes, setGarnishes ] = useState<Array<string>>([]);
     const [ leftButtonText, setLeftButtonText ] = useState<Array<string>>([]);
 
     // Fetch for initial ingredient categories
@@ -20,6 +21,19 @@ export function SearchByIngredients(props: any){
             setLeftButtonText(categories);
         })
     }, [])
+
+    useEffect(() => {
+        fetch(`${process.env.REACT_APP_API}cocktails/ingredients/garnishes`, {
+            method: 'GET',
+            mode: 'cors',
+        })
+        .then(response => response.json())
+        .then(data => {
+            const garnishNames = data.map((garnish: Ingredient) => garnish.name);
+            console.log(garnishNames);
+            setGarnishes(garnishNames);
+        })
+    }, []);
 
     function fetchSavedIngredients(){
         if (props.loggedIn){
@@ -75,14 +89,23 @@ export function SearchByIngredients(props: any){
         })
         .then(response => response.json())
         .then(data => {
-            console.log(data);
-            props.setSearchResults(data);
-            if (!data.length){
+            const filteredResults = filterResults(data);
+            props.setSearchResults(filteredResults);
+            if (!filteredResults.length){
                 props.setNoResults(true);
             }
         })
     }
 
+    function filterResults(cocktails: Array<Cocktail>) {
+        const myBar = props.myBar;
+        const filteredCocktails = cocktails.filter(cocktail => Object.entries(cocktail)
+        .filter(([key, value]) => key.includes('ingredient') && value)
+        .every(([key, value]) => myBar.includes(value) || garnishes.includes(value)));
+
+        return filteredCocktails;
+    }
+    
     function displayLeftButtons(): Array<ReactElement> {
         const currentleftButtonText = leftButtonText;
         const nextLeftButtons = currentleftButtonText.map((ingredient: string) => {

@@ -7,7 +7,7 @@ export function Profile(props: any){
         const savedCocktails: Array<SavedCocktail> = props.savedCocktails;
         const cocktailLinks = savedCocktails.map(cocktail => {
             return <li key={cocktail.id} className="my-2 ml-4">
-                    <Link className="hover:text-lightred" to={`/${cocktail.cocktail_pk}`}
+                    <Link className="hover:underline" to={`/${cocktail.cocktail_pk}`}
                     >
                         {cocktail.cocktail_name}
                     </Link>
@@ -33,12 +33,12 @@ export function Profile(props: any){
                     <div className="w-2/3 bg-cadetblue py-4 pl-6 pr-8 rounded shadow-lg">
                         <div className="text-xl">
                             <div className="">Username:</div>
-                            <div className="ml-4 mt-2">{props.username}</div>
+                            <div className="ml-4 mt-2 font-sans">{props.username}</div>
                         </div>
                         <div className="text-xl mt-4">
                             <div className="mb-2">
                                 My saved cocktails:
-                                <ul className="">
+                                <ul className="font-sans text-lg">
                                     {cocktailLinks}
                                 </ul>
                             </div>
