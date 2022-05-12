@@ -98,10 +98,14 @@ export function SearchByIngredients(props: any){
     }
 
     function filterResults(cocktails: Array<Cocktail>) {
-        const filteredCocktails = cocktails.filter(filterCocktail);
+        const myBar = props.myBar;
+        const filteredCocktails = cocktails.filter(cocktail => Object.entries(cocktail)
+        .filter(([key, value]) => key.includes('ingredient') && value)
+        .every(([key, value]) => myBar.includes(value) || garnishes.includes(value)));
+        
         return filteredCocktails;
     }
-
+/*
     function filterCocktail(cocktail: Cocktail): boolean {
         const myBar = props.myBar;
         const entries = Object.entries(cocktail);
@@ -110,7 +114,7 @@ export function SearchByIngredients(props: any){
 
         return canBeMade;
     }
-
+*/
     function displayLeftButtons(): Array<ReactElement> {
         const currentleftButtonText = leftButtonText;
         const nextLeftButtons = currentleftButtonText.map((ingredient: string) => {
