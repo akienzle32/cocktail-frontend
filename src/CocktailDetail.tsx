@@ -101,7 +101,7 @@ export function CocktailDetail(props: any){
         return ingredientsAndMeasuresList;
     }
 
-    function createSaveBtn(): ReactElement {
+    function createSaveBtn(): ReactElement | null {
         const loggedIn: boolean = props.loggedIn;
         const btnColor: string = getSaveBtnColor();
 
@@ -115,7 +115,7 @@ export function CocktailDetail(props: any){
                 {saved ? 'Saved' : 'Save'}
             </button>
         else
-            return <div className="inline-block ml-24 px-1 py-1"></div>
+            return null;
     }
 
     function getSaveBtnColor(): string {
